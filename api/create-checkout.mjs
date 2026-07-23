@@ -1,7 +1,7 @@
-/* Whimsy Workshop — create a Stripe Checkout session from the cart.
+/* Whimsy Workshop — create a Stripe Checkout session from the cart (Vercel function).
    The customer is redirected to Stripe's secure hosted payment page.
-   Requires a Netlify environment variable:
-     STRIPE_SECRET_KEY  — your Stripe secret key (starts with sk_live_ or sk_test_)
+   Requires a Vercel environment variable:
+     STRIPE_SECRET_KEY  — your Stripe secret key (sk_test_… while testing, sk_live_… when live)
 */
 function encodeForm(obj, prefix, out) {
   out = out || [];
@@ -15,20 +15,20 @@ function encodeForm(obj, prefix, out) {
   return out;
 }
 
-export const handler = async (event) => {
-  if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method not allowed" };
+export default async function handler(req, res) {
+  if (req.method !== "POST") { res.status(405).send("Method not allowed"); return; }
 
   const key = process.env.STRIPE_SECRET_KEY;
-  if (!key) return { statusCode: 500, body: "Payments not configured (missing STRIPE_SECRET_KEY)" };
+  if (!key) { res.status(500).send("Payments not configured (missing STRIPE_SECRET_KEY)"); return; }
 
-  let data;
-  try { data = JSON.parse(event.body || "{}"); }
-  catch { return { statusCode: 400, body: "Bad request" }; }
+  let data = req.body;
+  if (typeof data === "string") { try { data = JSON.parse(data); } catch { data = {}; } }
+  data = data || {};
 
   const items = Array.isArray(data.items) ? data.items : [];
-  if (!items.length) return { statusCode: 400, body: "Empty cart" };
+  if (!items.length) { res.status(400).send("Empty cart"); return; }
 
-  const origin = data.origin || `https://${event.headers.host}`;
+  const origin = data.origin || ("https://" + (req.headers.host || ""));
 
   const line_items = items.map((i) => ({
     price_data: {
@@ -51,7 +51,6 @@ export const handler = async (event) => {
   };
   if (data.email) params.customer_email = String(data.email).slice(0, 250);
 
-  // shipping as a Stripe shipping option (our estimate; adjustable in Stripe later)
   const ship = Math.round(Number(data.shipping) * 100);
   if (ship > 0) {
     params.shipping_options = [{
@@ -64,20 +63,15 @@ export const handler = async (event) => {
   }
 
   try {
-    const res = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+    const r = await fetch("https://api.stripe.com/v1/checkout/sessions", {
       method: "POST",
-      headers: {
-        "Authorization": `Bearer ${key}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+      headers: { "Authorization": `Bearer ${key}`, "Content-Type": "application/x-www-form-urlencoded" },
       body: encodeForm(params).join("&"),
     });
-    const session = await res.json();
-    if (!res.ok) {
-      return { statusCode: 502, body: (session.error && session.error.message) || "Stripe error" };
-    }
-    return { statusCode: 200, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: session.url }) };
+    const session = await r.json();
+    if (!r.ok) { res.status(502).send((session.error && session.error.message) || "Stripe error"); return; }
+    res.status(200).json({ url: session.url });
   } catch (e) {
-    return { statusCode: 500, body: "Checkout error: " + (e && e.message) };
+    res.status(500).send("Checkout error: " + (e && e.message));
   }
-};
+}

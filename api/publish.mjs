@@ -1,34 +1,29 @@
-/* Whimsy Workshop — publish function.
-   Receives the current data files from the admin and commits them to the site's
-   GitHub repo, which triggers a Netlify redeploy (making edits live for everyone).
-   Requires these Netlify environment variables:
+/* Whimsy Workshop — publish function (Vercel).
+   Commits the current data files from the admin to the GitHub repo, which makes
+   Vercel rebuild the site (edits go live for everyone).
+   Requires Vercel environment variables:
      PUBLISH_SECRET  — a password you choose (the admin asks for it)
      GITHUB_TOKEN    — a fine-grained GitHub token with "Contents: Read and write" on the repo
      GITHUB_REPO     — "owner/repo" (e.g. "samamerie/whimsy-workshop")
      GITHUB_BRANCH   — usually "main" (optional; defaults to main)
 */
-export const handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method not allowed" };
-  }
-  let payload;
-  try { payload = JSON.parse(event.body || "{}"); }
-  catch { return { statusCode: 400, body: "Bad request" }; }
+export default async function handler(req, res) {
+  if (req.method !== "POST") { res.status(405).send("Method not allowed"); return; }
 
-  const { secret, files } = payload;
+  let data = req.body;
+  if (typeof data === "string") { try { data = JSON.parse(data); } catch { data = {}; } }
+  data = data || {};
+
+  const { secret, files } = data;
   if (!process.env.PUBLISH_SECRET || secret !== process.env.PUBLISH_SECRET) {
-    return { statusCode: 401, body: "Unauthorized" };
+    res.status(401).send("Unauthorized"); return;
   }
-  if (!files || typeof files !== "object") {
-    return { statusCode: 400, body: "No files" };
-  }
+  if (!files || typeof files !== "object") { res.status(400).send("No files"); return; }
 
   const token = process.env.GITHUB_TOKEN;
   const repo = process.env.GITHUB_REPO;
   const branch = process.env.GITHUB_BRANCH || "main";
-  if (!token || !repo) {
-    return { statusCode: 500, body: "Server not configured (missing GITHUB_TOKEN or GITHUB_REPO)" };
-  }
+  if (!token || !repo) { res.status(500).send("Server not configured (missing GITHUB_TOKEN or GITHUB_REPO)"); return; }
 
   const headers = {
     "Authorization": `Bearer ${token}`,
@@ -39,7 +34,6 @@ export const handler = async (event) => {
   try {
     for (const [path, content] of Object.entries(files)) {
       const api = `https://api.github.com/repos/${repo}/contents/${encodeURIComponent(path)}`;
-      // current sha (if the file already exists)
       let sha;
       const get = await fetch(`${api}?ref=${branch}`, { headers });
       if (get.ok) { const j = await get.json(); sha = j.sha; }
@@ -50,13 +44,10 @@ export const handler = async (event) => {
       };
       if (sha) body.sha = sha;
       const put = await fetch(api, { method: "PUT", headers, body: JSON.stringify(body) });
-      if (!put.ok) {
-        const t = await put.text();
-        return { statusCode: 502, body: `Failed on ${path}: ${put.status} ${t}` };
-      }
+      if (!put.ok) { res.status(502).send(`Failed on ${path}: ${put.status} ${await put.text()}`); return; }
     }
-    return { statusCode: 200, body: JSON.stringify({ ok: true }) };
+    res.status(200).json({ ok: true });
   } catch (e) {
-    return { statusCode: 500, body: "Publish error: " + (e && e.message) };
+    res.status(500).send("Publish error: " + (e && e.message));
   }
-};
+}

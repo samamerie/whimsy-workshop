@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -30,7 +29,6 @@
   <input id="lockEmail" class="lk" type="email" placeholder="email" autocomplete="username" />
   <input id="lockPass" class="lk" type="password" placeholder="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryUnlock()" />
   <button class="abtn primary" style="width:100%;" onclick="tryUnlock()">Log in</button>
-  <button id="netlifyBtn" class="abtn" style="width:100%;margin-top:.6rem;display:none;" onclick="netlifyIdentity.open()">Log in with Netlify</button>
   <p id="lockErr" style="color:var(--rose-deep);margin-top:.8rem;display:none;">Those details don't match — try again.</p>
 </div>
 
@@ -111,24 +109,6 @@
     buildCatFilter();
     renderList();
   }
-  /* Netlify Identity (real auth on the live site). Falls back to the passcode form locally. */
-  if(window.netlifyIdentity){
-    netlifyIdentity.on("init", user => {
-      if(user && user.email && user.email.toLowerCase() === ADMIN_EMAIL){
-        sessionStorage.setItem("ww_admin_ok","1");
-      }
-      const btn = document.getElementById("netlifyBtn");
-      if(btn) btn.style.display = "block";
-    });
-    netlifyIdentity.on("login", user => {
-      if(user.email && user.email.toLowerCase() === ADMIN_EMAIL){
-        sessionStorage.setItem("ww_admin_ok","1"); netlifyIdentity.close(); showApp();
-      } else { alert("This account isn't authorised for the workshop admin."); netlifyIdentity.logout(); }
-    });
-    netlifyIdentity.on("logout", () => { sessionStorage.removeItem("ww_admin_ok"); });
-    netlifyIdentity.init();
-  }
-
   if(sessionStorage.getItem("ww_admin_ok")==="1"){ showApp(); }
   else { document.getElementById("lock").style.display="block"; document.getElementById("lockEmail").focus(); }
 
@@ -426,7 +406,7 @@
     };
     toast("Publishing to the website…");
     try {
-      const r = await fetch("/.netlify/functions/publish", {
+      const r = await fetch("/api/publish", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ secret, files }),

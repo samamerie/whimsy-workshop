@@ -246,7 +246,7 @@
       origin: location.origin
     };
     toast("Taking you to secure checkout…");
-    fetch("/.netlify/functions/create-checkout", {
+    fetch("/api/create-checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -282,33 +282,8 @@
       localStorage.setItem("ww_orders", JSON.stringify(o));
     } catch (e) {}
 
-    /* Live on Netlify → capture to the Forms dashboard. Local/preview → email fallback. */
-    if (!isLocal()) {
-      var fields = {
-        "form-name": "orders",
-        customer: p ? p.firstName + " " + p.lastName : "",
-        email: p ? p.email : "",
-        phone: p && p.phone ? p.phone : "",
-        address: addr,
-        items: itemsText,
-        subtotal: money(subN),
-        shipping: shipLabel,
-        total: money(grand),
-        notes: p && p.notes ? p.notes : ""
-      };
-      var body = Object.keys(fields).map(function (k) {
-        return encodeURIComponent(k) + "=" + encodeURIComponent(fields[k]);
-      }).join("&");
-      fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body })
-        .then(function (r2) {
-          if (!r2.ok) throw new Error("form");
-          save([]); close();
-          toast("Order placed — we'll be in touch ✦");
-        })
-        .catch(function () { emailOrder(p, items, money(subN), shipLabel, money(grand), addr); });
-    } else {
-      emailOrder(p, items, money(subN), shipLabel, money(grand), addr);
-    }
+    /* fallback used only if card checkout can't be reached — send the order by email */
+    emailOrder(p, items, money(subN), shipLabel, money(grand), addr);
   }
 
   function emailOrder(p, items, subLabel, shipLabel, totalLabel, addr) {
