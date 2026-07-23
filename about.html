@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — Whimsy Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brandmark"><img src="logo-mark.png" alt="" class="brand-logo">Whimsy&nbsp;Workshop</a>
+    <nav class="menu" id="menu">
+      <a href="shop.html">Shop</a>
+      <a href="index.html#crafts">Crafts &amp; Featured</a>
+      <a href="about.html" class="active">About</a>
+      <a href="markets.html">Markets</a>
+    </nav>
+    <div class="nav-right">
+      <button class="acct-btn" onclick="WWAccount.open('account')">Account</button>
+      <button class="cart-btn" onclick="WWCart.open()">
+        Cart <span class="cart-count" id="cartCount" data-cart-count>0</span>
+      </button>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <svg class="spark" style="top:26%;left:16%" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+  <svg class="spark gold" style="top:34%;right:18%;animation-delay:1s" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">The makers</p>
+    <h1>the hands behind the whimsy</h1>
+    <p class="lead">Handmade to order in small batches, so every piece is a little one-of-a-kind.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:2rem;">
+  <div class="wrap">
+    <div class="maker">
+      <div class="maker-photo">✿<small>your photo</small></div>
+      <div>
+        <p class="eyebrow">Hello there!</p>
+        <h2>Lots of little joys, made to order</h2>
+        <p>Hi, we're the hands behind Whimsy Workshop! We make small handmade things — charms and trinkets that clip onto your bag, dangle from your phone, or sit on a shelf and make you smile.</p>
+        <p>No two are ever quite the same, so the one you pick is truly yours. You'll find us at markets around Windsor–LaSalle, or right here in the shop.</p>
+        <div class="cta-row" style="justify-content:flex-start;margin-top:.4rem;">
+          <a href="shop.html" class="btn btn-primary">Browse the shop</a>
+          <a href="markets.html" class="btn btn-ghost">Find us at a market</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:1rem;">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">What we make</p>
+      <h2>How it's made</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-card"><div class="ico">📿</div><h3>Bracelets</h3><p>Strung and knotted bead by bead — beaded, wire-wrapped or loom-woven, one wrist at a time.</p></div>
+      <div class="how-card"><div class="ico">🔑</div><h3>Keychains</h3><p>Beaded charms and little trinkets strung and clipped ready to dangle — plus custom polymer-clay charm options made to order.</p></div>
+      <div class="how-card"><div class="ico">💠</div><h3>Beadwork</h3><p>Charms, curtains and trinkets strung by hand from glass and clay beads.</p></div>
+      <div class="how-card"><div class="ico">🔗</div><h3>Necklaces &amp; Sets</h3><p>Hand-strung necklaces and matching sets, beaded to sit just right.</p></div>
+      <div class="how-card"><div class="ico">🧶</div><h3>Crochet</h3><p>Soft plushies, bags and blooms, worked stitch by stitch from cotton yarn.</p></div>
+      <div class="how-card"><div class="ico">🐑</div><h3>Felting</h3><p>Fuzzy little friends, poked into being from soft wool roving.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:1rem;">
+  <div class="wrap">
+    <div class="cta-band">
+      <p class="eyebrow">Something special?</p>
+      <h2>Custom orders welcome</h2>
+      <p>Want a piece in your colours, a favourite character, or a matching set for a gift? Send me a note on Instagram and let's make something just for you.</p>
+      <div class="cta-row">
+        <a href="https://www.instagram.com/whimsy._.workshop" target="_blank" rel="noopener" class="btn btn-primary">Message on Instagram</a>
+        <a href="shop.html" class="btn btn-ghost">See the shop</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="brandmark">Whimsy&nbsp;Workshop</span>
+        <p>Home of handmade whimsy. Tiny treasures, made one at a time.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">All pieces</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="markets.html">Markets</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Hello</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/whimsy._.workshop" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="markets.html">Markets &amp; events</a></li>
+          <li><a href="#">Shipping &amp; returns</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Whimsy Workshop</span>
+      <span>Made by hand in Ontario, Canada · <a href="admin.html" style="color:inherit;text-decoration:underline;opacity:.6;">Admin</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="settings.js"></script>
+<script src="account.js"></script>
+<script src="cart.js"></script>
+<script>
+  (function(){
+    var img = "";
+    try { img = localStorage.getItem("ww_about_img") || ""; } catch(e){}
+    if(!img && window.WW_SETTINGS) img = WW_SETTINGS.aboutImage || "";
+    if(img){
+      var el = document.querySelector(".maker-photo");
+      if(el) el.innerHTML = '<img src="' + img + '" alt="The maker">';
+    }
+  })();
+</script>
+</body>
+</html>

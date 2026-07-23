@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shop — Whimsy Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brandmark"><img src="logo-mark.png" alt="" class="brand-logo">Whimsy&nbsp;Workshop</a>
+    <nav class="menu" id="menu">
+      <a href="shop.html" class="active">Shop</a>
+      <a href="index.html#crafts">Crafts &amp; Featured</a>
+      <a href="about.html">About</a>
+      <a href="markets.html">Markets</a>
+    </nav>
+    <div class="nav-right">
+      <button class="acct-btn" onclick="WWAccount.open('account')">Account</button>
+      <button class="cart-btn" onclick="WWCart.open()">
+        Cart <span class="cart-count" id="cartCount" data-cart-count>0</span>
+      </button>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="wrap shop-head">
+  <p class="eyebrow">Fresh from the workshop</p>
+  <h1>Shop all pieces</h1>
+  <p>Each one sculpted, strung, stitched and felted by hand. Browse by category, or jump straight to what you love.</p>
+</section>
+
+<div class="wrap"><div class="jump-bar" id="jumpBar"></div></div>
+<div class="wrap" id="sections"></div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="brandmark">Whimsy&nbsp;Workshop</span>
+        <p>Home of handmade whimsy. Tiny treasures, made one at a time.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">All pieces</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="markets.html">Markets</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Hello</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/whimsy._.workshop" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="markets.html">Markets</a></li>
+          <li><a href="#">Shipping &amp; returns</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Whimsy Workshop</span>
+      <span>Made by hand in Ontario, Canada · <a href="admin.html" style="color:inherit;text-decoration:underline;opacity:.6;">Admin</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="products.js"></script>
+<script src="store.js"></script>
+<script src="account.js"></script>
+<script src="cart.js"></script>
+<script>
+  const IG_DM = "https://ig.me/m/whimsy._.workshop";
+  const CAT_EMOJI = {
+    "Felt":"🐑", "Bracelets":"📿", "Necklaces":"💎", "Earrings":"✨", "Sets":"🎁",
+    "Beadwork":"🧿", "Clay":"🍰", "Keychains":"🗝️", "Crochet":"🧶"
+  };
+  const TONES = ["p1","p2","p3","p4","p5","p6"];
+  function toneFor(id){ let h=0; for(const ch of id) h=(h*31+ch.charCodeAt(0))>>>0; return TONES[h%TONES.length]; }
+  function priceLabel(p){ return p.priceText ? p.priceText : (p.price!=null ? "$"+p.price : "—"); }
+  function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function getImgs(p){ return (Array.isArray(p.imgs) && p.imgs.length) ? p.imgs : (p.img ? [p.img] : []); }
+  function hasVariants(p){ return (p.options && p.options.length) || getImgs(p).length > 1; }
+
+  const byId = {};
+  WWStore.all().forEach(p => byId[p.id] = p);
+
+  function cardHTML(p){
+    const badge = p.sold ? `<span class="sold-badge">Sold</span>` : "";
+    const imgs = getImgs(p);
+    const more = imgs.length > 1 ? `<span class="more-badge">+${imgs.length-1} photos</span>` : "";
+    const photo = imgs.length
+      ? `<div class="photo has-img" data-id="${esc(p.id)}">${badge}${more}<img src="${esc(imgs[0])}" loading="lazy" alt="${esc(p.name)}"></div>`
+      : `<div class="photo ${toneFor(p.id)}" data-id="${esc(p.id)}">${badge}${CAT_EMOJI[p.category]||"✦"}<small>your photo</small></div>`;
+    const action = p.sold
+      ? `<a class="btn-ig" href="${IG_DM}" target="_blank" rel="noopener">Message ✦</a>`
+      : (p.options && p.options.length
+          ? `<button class="add" data-id="${esc(p.id)}">Choose</button>`
+          : `<button class="add" data-id="${esc(p.id)}">Add</button>`);
+    return `<article class="card${p.sold?" is-sold":""}" data-sub="${esc(p.sub||"")}">
+      ${photo}
+      <div class="card-body">
+        <span class="cat">${esc(p.sub || p.category)}</span>
+        <h3>${esc(p.name)}</h3>
+        ${p.desc?`<p class="card-desc">${esc(p.desc)}</p>`:""}
+        <div class="card-foot"><span class="price">${priceLabel(p)}</span>${action}</div>
+      </div>
+    </article>`;
+  }
+
+  function sectionHTML(cat){
+    const items = WWStore.all().filter(p => p.category === cat);
+    if(!items.length) return "";
+    let subRow = "";
+    const subs = WWStore.subs(cat).filter(Boolean);
+    if(subs.length){
+      subRow = `<div class="subfilter-bar" data-forcat="${slug(cat)}">`
+        + ["All", ...subs].map((s,i) =>
+            `<button class="subchip${i===0?" active":""}" data-sub="${s==="All"?"":esc(s)}">${s==="All"?("All "+cat.toLowerCase()):esc(s)}</button>`).join("")
+        + `</div>`;
+    }
+    return `<section class="shop-cat" id="cat-${slug(cat)}">
+      <div class="shop-cat-head"><h2>${esc(cat)}</h2><span class="n">${items.length} ${items.length===1?"piece":"pieces"}</span></div>
+      ${subRow}
+      <div class="prod-grid cols-4" data-grid="${slug(cat)}">${items.map(cardHTML).join("")}</div>
+    </section>`;
+  }
+
+  const cats = WWStore.categories();
+  document.getElementById("jumpBar").innerHTML = cats.map(c =>
+    `<button class="chip" data-jump="cat-${slug(c)}"><span class="em">${CAT_EMOJI[c]||"✦"}</span>${esc(c)}</button>`).join("");
+  const sections = document.getElementById("sections");
+  sections.innerHTML = cats.map(sectionHTML).join("");
+
+  /* pin the jump bar directly below the header (whatever its height) */
+  (function alignJump(){
+    const h = document.querySelector("header"), j = document.querySelector(".jump-bar");
+    if(h && j) j.style.top = h.offsetHeight + "px";
+  })();
+
+  document.getElementById("jumpBar").addEventListener("click", e => {
+    const b = e.target.closest("[data-jump]");
+    if(b) scrollToCat(b.dataset.jump);
+  });
+
+  /* scroll a section under the sticky header + jump bar (not hidden behind them) */
+  function scrollToCat(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    const header = document.querySelector("header");
+    const jump = document.querySelector(".jump-bar");
+    const offset = (header ? header.offsetHeight : 0) + (jump ? jump.offsetHeight : 0) + 14;
+    const y = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+  }
+
+  /* arrived via a #cat-... link from the home page — scroll there once sections exist */
+  function goToHash(){ if(location.hash) scrollToCat(location.hash.slice(1)); }
+  if(location.hash){
+    setTimeout(goToHash, 120);
+    window.addEventListener("load", () => setTimeout(goToHash, 200));
+  }
+
+  sections.addEventListener("click", e => {
+    const add = e.target.closest(".add");
+    if(add){
+      const p = byId[add.dataset.id];
+      if(!p) return;
+      if(hasVariants(p)) openQuickView(p);
+      else WWCart.add(p.name, p.price || 0, CAT_EMOJI[p.category] || "✦", toneFor(p.id), getImgs(p)[0] || "");
+      return;
+    }
+    const photo = e.target.closest(".photo[data-id]");
+    if(photo){
+      const p = byId[photo.dataset.id];
+      if(p && !p.sold && hasVariants(p)) openQuickView(p);
+      return;
+    }
+    const sub = e.target.closest(".subchip");
+    if(sub){
+      const bar = sub.parentElement;
+      bar.querySelectorAll(".subchip").forEach(b => b.classList.toggle("active", b === sub));
+      const grid = sections.querySelector('[data-grid="' + bar.dataset.forcat + '"]');
+      const val = sub.dataset.sub;
+      grid.querySelectorAll(".card").forEach(c => { c.style.display = (!val || c.dataset.sub === val) ? "" : "none"; });
+    }
+  });
+
+  /* quick view — photo gallery + option pickers, then add the chosen variant */
+  function openQuickView(p){
+    const imgs = getImgs(p);
+    const opts = p.options || [];
+    const sel = opts.map(() => 0);
+
+    const gallery = imgs.length
+      ? `<div class="qv-main"><img id="qvMain" src="${esc(imgs[0])}" alt="${esc(p.name)}"></div>`
+        + (imgs.length > 1
+          ? `<div class="qv-thumbs">${imgs.map((s,i)=>`<button class="qv-thumb${i===0?" active":""}" data-src="${esc(s)}"><img src="${esc(s)}" alt=""></button>`).join("")}</div>`
+          : "")
+      : `<div class="qv-main">${CAT_EMOJI[p.category]||"✦"}</div>`;
+
+    const optsHTML = opts.map((g,gi)=>`
+      <div class="qv-opt">
+        <div class="qv-opt-name">${esc(g.name)}</div>
+        <div class="qv-choices">${g.choices.map((c,ci)=>
+          `<button class="qv-choice${ci===0?" active":""}" data-gi="${gi}" data-ci="${ci}">${esc(c.label)}${c.price!=null?` — $${c.price}`:""}</button>`).join("")}</div>
+      </div>`).join("");
+
+    const ov = document.createElement("div");
+    ov.className = "ww-modal-ov show";
+    ov.innerHTML = `<div class="ww-modal">
+      <div class="ww-modal-head"><div></div><button class="ww-modal-x" aria-label="Close">&times;</button></div>
+      ${gallery}
+      <h2 class="qv-title">${esc(p.name)}</h2>
+      <p class="qv-price" id="qvPrice"></p>
+      ${p.desc?`<p class="qv-desc">${esc(p.desc)}</p>`:""}
+      ${optsHTML}
+      <button class="qv-add">Add to cart ✦</button>
+    </div>`;
+    document.body.appendChild(ov);
+
+    function currentPrice(){
+      let price = p.price != null ? p.price : 0;
+      opts.forEach((g,gi)=>{ const c = g.choices[sel[gi]]; if(c && c.price != null) price = c.price; });
+      return price;
+    }
+    function updatePrice(){
+      const pr = currentPrice();
+      ov.querySelector("#qvPrice").textContent = pr ? "$"+pr : (p.priceText || "—");
+    }
+    updatePrice();
+
+    const close = () => ov.remove();
+    ov.addEventListener("click", e => { if(e.target === ov) close(); });
+    ov.querySelector(".ww-modal-x").onclick = close;
+    ov.querySelectorAll(".qv-thumb").forEach(t => t.onclick = () => {
+      ov.querySelector("#qvMain").src = t.dataset.src;
+      ov.querySelectorAll(".qv-thumb").forEach(x => x.classList.toggle("active", x === t));
+    });
+    ov.querySelectorAll(".qv-choice").forEach(ch => ch.onclick = () => {
+      const gi = +ch.dataset.gi, ci = +ch.dataset.ci; sel[gi] = ci;
+      ov.querySelectorAll(`.qv-choice[data-gi="${gi}"]`).forEach(x => x.classList.toggle("active", x === ch));
+      updatePrice();
+    });
+    ov.querySelector(".qv-add").onclick = () => {
+      const labels = opts.map((g,gi) => g.choices[sel[gi]].label).filter(Boolean);
+      const name = labels.length ? `${p.name} — ${labels.join(", ")}` : p.name;
+      const mainImg = ov.querySelector("#qvMain") ? ov.querySelector("#qvMain").getAttribute("src") : (imgs[0] || "");
+      WWCart.add(name, currentPrice(), CAT_EMOJI[p.category] || "✦", toneFor(p.id), mainImg);
+      close();
+    };
+  }
+</script>
+</body>
+</html>

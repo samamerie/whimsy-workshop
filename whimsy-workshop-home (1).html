@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Whimsy Workshop — Home of Handmade Whimsy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --mint:#E9F1EB;
+    --mint-deep:#D7E7DB;
+    --cream:#FCFAF6;
+    --rose:#E29AA0;
+    --rose-deep:#C9787F;
+    --ink:#3B3A3E;
+    --sage:#6F8A74;
+    --gold:#C8A24B;
+    --shadow:0 18px 40px -22px rgba(59,58,62,.35);
+    --radius:22px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Nunito",system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--mint);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:"Fraunces",serif;font-weight:500;line-height:1.1;margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{width:min(1140px,92vw);margin-inline:auto;}
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--rose-deep);font-weight:700;
+  }
+
+  /* sparkle motif */
+  .spark{position:absolute;pointer-events:none;color:var(--rose);opacity:.55;animation:tw 4s ease-in-out infinite;}
+  .spark.gold{color:var(--gold);}
+  @keyframes tw{0%,100%{transform:scale(.7) rotate(0deg);opacity:.25;}50%{transform:scale(1) rotate(15deg);opacity:.8;}}
+
+  /* ---- header ---- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(233,241,235,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--mint-deep);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0;gap:1rem;}
+  .brandmark{
+    font-family:"Fraunces",serif;font-weight:500;
+    letter-spacing:.34em;text-transform:uppercase;font-size:.95rem;
+    padding-left:.34em;color:var(--ink);white-space:nowrap;
+  }
+  .menu{display:flex;gap:1.6rem;align-items:center;}
+  .menu a{font-weight:600;font-size:.92rem;color:var(--ink);position:relative;}
+  .menu a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--rose);transition:width .25s;}
+  .menu a:hover::after,.menu a:focus-visible::after{width:100%;}
+  .nav-right{display:flex;align-items:center;gap:1.1rem;}
+  .cart-btn{
+    display:inline-flex;align-items:center;gap:.45rem;
+    background:var(--ink);color:var(--cream);border:none;cursor:pointer;
+    font-family:"Nunito";font-weight:700;font-size:.86rem;
+    padding:.55rem .95rem;border-radius:999px;transition:transform .2s,background .2s;
+  }
+  .cart-btn:hover{background:var(--rose-deep);transform:translateY(-1px);}
+  .cart-count{background:var(--rose);color:#fff;border-radius:999px;min-width:1.25rem;height:1.25rem;display:inline-grid;place-items:center;font-size:.72rem;}
+  .burger{display:none;background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--ink);}
+
+  /* ---- hero ---- */
+  .hero{position:relative;text-align:center;padding:5.5rem 0 4.5rem;overflow:hidden;}
+  .hero .arch{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(120% 90% at 50% -10%, var(--cream) 0%, transparent 55%),
+      radial-gradient(60% 60% at 85% 30%, rgba(226,154,160,.18) 0%, transparent 60%),
+      radial-gradient(50% 50% at 12% 70%, rgba(111,138,116,.16) 0%, transparent 60%);
+  }
+  .hero-inner{position:relative;z-index:2;}
+  .wordmark{
+    font-family:"Fraunces",serif;font-weight:500;text-transform:uppercase;
+    letter-spacing:.18em;font-size:clamp(2.4rem,7vw,4.7rem);
+    color:var(--ink);margin:.2rem 0 .1rem;
+  }
+  .tagline{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:400;
+    color:var(--rose-deep);font-size:clamp(1.05rem,2.4vw,1.4rem);margin-bottom:1.4rem;
+  }
+  .hero p.lead{max-width:34rem;margin:0 auto 2rem;color:var(--sage);font-weight:600;font-size:1.02rem;}
+  .cta-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-family:"Nunito";font-weight:700;font-size:.95rem;
+    padding:.85rem 1.6rem;border-radius:999px;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;
+    border:2px solid transparent;
+  }
+  .btn-primary{background:var(--rose);color:#fff;box-shadow:var(--shadow);}
+  .btn-primary:hover{background:var(--rose-deep);transform:translateY(-2px);}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:var(--cream);}
+  .ship-band{margin-top:2.4rem;font-weight:700;color:var(--sage);font-size:.9rem;letter-spacing:.02em;}
+
+  /* ---- crafts ---- */
+  .section{padding:4.2rem 0;}
+  .section-head{text-align:center;margin-bottom:2.4rem;}
+  .section-head h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-top:.4rem;}
+  .crafts-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;}
+  .craft{
+    background:var(--cream);border-radius:var(--radius);padding:1.4rem .6rem;text-align:center;
+    border:1px solid var(--mint-deep);transition:transform .22s,box-shadow .22s;cursor:pointer;
+  }
+  .craft:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+  .craft .ico{width:46px;height:46px;margin:0 auto .7rem;display:grid;place-items:center;border-radius:50%;background:var(--mint);font-size:1.4rem;}
+  .craft span{font-weight:700;font-size:.84rem;}
+
+  /* ---- products ---- */
+  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;}
+  .card{background:var(--cream);border-radius:var(--radius);overflow:hidden;border:1px solid var(--mint-deep);transition:transform .22s,box-shadow .22s;display:flex;flex-direction:column;}
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
+  .photo{aspect-ratio:4/3;display:grid;place-items:center;position:relative;color:rgba(59,58,62,.45);font-size:2.6rem;}
+  .photo small{position:absolute;bottom:8px;right:12px;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-family:"Nunito";font-weight:700;color:rgba(59,58,62,.4);}
+  .p1{background:linear-gradient(135deg,#F7DCE0,#EBC9D2);}
+  .p2{background:linear-gradient(135deg,#DDE9DF,#C8DDcf);}
+  .p3{background:linear-gradient(135deg,#F3E7D6,#E8D6BE);}
+  .p4{background:linear-gradient(135deg,#E5DDF0,#D3C7E6);}
+  .p5{background:linear-gradient(135deg,#F8E0D2,#F0CBB6);}
+  .p6{background:linear-gradient(135deg,#D9E8EC,#C2DBE2);}
+  .card-body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.5rem;flex:1;}
+  .card-body .cat{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep);font-weight:700;}
+  .card-body h3{font-size:1.12rem;}
+  .card-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:.5rem;}
+  .price{font-family:"Fraunces",serif;font-weight:600;font-size:1.15rem;}
+  .add{background:var(--mint);border:1px solid var(--mint-deep);border-radius:999px;padding:.45rem .9rem;font-family:"Nunito";font-weight:700;font-size:.82rem;cursor:pointer;transition:background .2s,color .2s;}
+  .add:hover{background:var(--rose);color:#fff;border-color:var(--rose);}
+
+  /* ---- story ---- */
+  .story{background:var(--cream);border-radius:32px;padding:clamp(2rem,5vw,3.4rem);display:grid;grid-template-columns:1.1fr .9fr;gap:2.4rem;align-items:center;border:1px solid var(--mint-deep);}
+  .story h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:1rem;}
+  .story p{color:var(--sage);font-weight:600;margin:0 0 1rem;}
+  .story-card{background:var(--mint);border-radius:var(--radius);padding:1.6rem;display:grid;gap:.9rem;}
+  .stat{display:flex;align-items:baseline;gap:.6rem;}
+  .stat b{font-family:"Fraunces",serif;font-size:1.6rem;color:var(--rose-deep);}
+
+  /* ---- newsletter / footer ---- */
+  footer{background:var(--ink);color:#EDE7E0;margin-top:4rem;padding:3.4rem 0 2rem;}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem;}
+  .foot-brand .brandmark{color:#fff;}
+  .foot-brand p{color:#B7B2AC;font-weight:600;max-width:24rem;margin-top:.8rem;}
+  .news{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap;}
+  .news input{flex:1;min-width:160px;border:none;border-radius:999px;padding:.7rem 1.1rem;font-family:"Nunito";font-weight:600;}
+  .news button{background:var(--rose);color:#fff;border:none;border-radius:999px;padding:.7rem 1.3rem;font-family:"Nunito";font-weight:700;cursor:pointer;transition:background .2s;}
+  .news button:hover{background:var(--rose-deep);}
+  footer h4{font-family:"Nunito";font-weight:800;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);margin:0 0 1rem;}
+  footer ul{list-style:none;padding:0;margin:0;display:grid;gap:.6rem;}
+  footer ul a{color:#CFC9C2;font-weight:600;font-size:.92rem;}
+  footer ul a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid #4a4950;margin-top:2.4rem;padding-top:1.4rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;color:#928D87;font-size:.82rem;font-weight:600;}
+
+  /* toast */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:.8rem 1.4rem;border-radius:999px;font-weight:700;font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;z-index:100;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media(max-width:860px){
+    .crafts-grid{grid-template-columns:repeat(3,1fr);}
+    .prod-grid{grid-template-columns:repeat(2,1fr);}
+    .story{grid-template-columns:1fr;}
+    .foot-top{grid-template-columns:1fr;}
+    .menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--mint);flex-direction:column;padding:1.2rem 6vw;gap:1rem;border-bottom:1px solid var(--mint-deep);}
+    .menu.open{display:flex;}
+    .burger{display:block;}
+  }
+  @media(max-width:520px){
+    .crafts-grid{grid-template-columns:repeat(2,1fr);}
+    .prod-grid{grid-template-columns:1fr;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brandmark">Whimsy&nbsp;Workshop</a>
+    <nav class="menu" id="menu">
+      <a href="#shop">Shop</a>
+      <a href="#crafts">Crafts</a>
+      <a href="#story">About</a>
+      <a href="#" >Markets</a>
+    </nav>
+    <div class="nav-right">
+      <button class="cart-btn" onclick="addToCart('')">
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="arch"></div>
+  <!-- sparkles -->
+  <svg class="spark" style="top:18%;left:14%" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+  <svg class="spark gold" style="top:28%;right:16%;animation-delay:1s" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+  <svg class="spark" style="bottom:22%;left:22%;animation-delay:2s" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+  <svg class="spark" style="bottom:30%;right:24%;animation-delay:1.5s" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 6 5 10 12 12-7 2-11 6-12 12-1-6-5-10-12-12 7-2 11-6 12-12z"/></svg>
+
+  <div class="wrap hero-inner">
+    <p class="eyebrow">Home of Handmade Whimsy</p>
+    <h1 class="wordmark">Whimsy Workshop</h1>
+    <p class="tagline">tiny treasures, made one at a time</p>
+    <p class="lead">Phone charms, beaded bracelets, crochet buddies, polymer-clay sweets and more — each piece sculpted, strung, stitched and felted by hand.</p>
+    <div class="cta-row">
+      <a href="#shop" class="btn btn-primary">Shop the collection</a>
+      <a href="#story" class="btn btn-ghost">Our story</a>
+    </div>
+    <p class="ship-band">✦ Handmade in Ontario&nbsp;·&nbsp;Ships across Canada &amp; the U.S. ✦</p>
+  </div>
+</section>
+
+<section class="section" id="crafts">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Six little crafts</p>
+      <h2>Made by hand, every way</h2>
+    </div>
+    <div class="crafts-grid">
+      <div class="craft"><div class="ico">🧶</div><span>Crochet</span></div>
+      <div class="craft"><div class="ico">📿</div><span>Beadwork</span></div>
+      <div class="craft"><div class="ico">🐑</div><span>Felting</span></div>
+      <div class="craft"><div class="ico">🍰</div><span>Polymer Clay</span></div>
+      <div class="craft"><div class="ico">🪡</div><span>Embroidery</span></div>
+      <div class="craft"><div class="ico">🎀</div><span>Wax Seals</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Fresh from the workshop</p>
+      <h2>Featured pieces</h2>
+    </div>
+    <div class="prod-grid">
+      <article class="card">
+        <div class="photo p1">🍓<small>your photo</small></div>
+        <div class="card-body">
+          <span class="cat">Beadwork</span>
+          <h3>Strawberry Shortcake Bracelet</h3>
+          <div class="card-foot"><span class="price">$14</span><button class="add" onclick="addToCart('Strawberry Shortcake Bracelet')">Add</button></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="photo p3">🌰<small>your photo</small></div>
+        <div class="card-body">
+          <span class="cat">Polymer Clay</span>
+          <h3>Totoro Phone Charm</h3>
+          <div class="card-foot"><span class="price">$12</span><button class="add" onclick="addToCart('Totoro Phone Charm')">Add</button></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="photo p2">🍄<small>your photo</small></div>
+        <div class="card-body">
+          <span class="cat">Crochet</span>
+          <h3>Crochet Strawberry Buddy</h3>
+          <div class="card-foot"><span class="price">$18</span><button class="add" onclick="addToCart('Crochet Strawberry Buddy')">Add</button></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="photo p4">🌙<small>your photo</small></div>
+        <div class="card-body">
+          <span class="cat">Beadwork</span>
+          <h3>Celestial Layered Necklace</h3>
+          <div class="card-foot"><span class="price">$28</span><button class="add" onclick="addToCart('Celestial Layered Necklace')">Add</button></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="photo p6">🍪<small>your photo</small></div>
+        <div class="card-body">
+          <span class="cat">Polymer Clay</span>
+          <h3>Cookie Monster Charm</h3>
+          <div class="card-foot"><span class="price">$13</span><button class="add" onclick="addToCart('Cookie Monster Charm')">Add</button></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="photo p5">🌸<small>your photo</small></div>
+        <div class="card-body">
+          <span class="cat">Beadwork</span>
+          <h3>Sakura Bag Charm</h3>
+          <div class="card-foot"><span class="price">$15</span><button class="add" onclick="addToCart('Sakura Bag Charm')">Add</button></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="story">
+  <div class="wrap">
+    <div class="story">
+      <div>
+        <p class="eyebrow">The maker</p>
+        <h2>One pair of hands, a lot of little joys</h2>
+        <p>Whimsy Workshop turns beads, yarn, clay and thread into everyday treasures — the kind that clip onto a bag, dangle from a phone, or sit on a shelf and make you smile.</p>
+        <p>Everything is made to order in small batches, so no two pieces are quite the same. Find us at markets around Windsor–LaSalle, or take a piece home from the shop.</p>
+        <a href="#shop" class="btn btn-primary" style="margin-top:.4rem">Browse the shop</a>
+      </div>
+      <div class="story-card">
+        <div class="stat"><b>6</b><span>handmade crafts under one roof</span></div>
+        <div class="stat"><b>100%</b><span>made by hand, made to order</span></div>
+        <div class="stat"><b>🇨🇦 🇺🇸</b><span>ships across Canada &amp; the U.S.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="brandmark">Whimsy&nbsp;Workshop</span>
+        <p>Home of handmade whimsy. Get first dibs when new pieces drop.</p>
+        <div class="news">
+          <input type="email" placeholder="you@email.com" aria-label="Email address" />
+          <button onclick="joinList(event)">Join</button>
+        </div>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#shop">All pieces</a></li>
+          <li><a href="#crafts">Charms</a></li>
+          <li><a href="#crafts">Bracelets</a></li>
+          <li><a href="#crafts">Crochet</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Hello</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/whimsy._.workshop" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="#story">About</a></li>
+          <li><a href="#">Markets</a></li>
+          <li><a href="#">Shipping &amp; returns</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Whimsy Workshop</span>
+      <span>Made by hand in Ontario, Canada</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Added to cart ✦</div>
+
+<script>
+  let count = 0;
+  function addToCart(name){
+    if(name){count++;document.getElementById('cartCount').textContent=count;
+      const t=document.getElementById('toast');
+      t.textContent = name ? name+' added ✦' : 'Added to cart ✦';
+      t.classList.add('show');clearTimeout(window._tt);
+      window._tt=setTimeout(()=>t.classList.remove('show'),1800);
+    }
+  }
+  function joinList(e){
+    e.preventDefault();
+    const t=document.getElementById('toast');
+    t.textContent='Thanks — you\u2019re on the list ✦';
+    t.classList.add('show');clearTimeout(window._tt);
+    window._tt=setTimeout(()=>t.classList.remove('show'),1800);
+  }
+</script>
+</body>
+</html>

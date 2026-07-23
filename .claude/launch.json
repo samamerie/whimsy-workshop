@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "whimsy-static",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [".claude/server.mjs"],
+      "port": 5177
+    }
+  ]
+}

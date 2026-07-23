@@ -1,0 +1,2667 @@
+/* Whimsy Workshop — product catalog (spreadsheet categories). Edit via admin.html. */
+window.WW_CATALOG_VERSION = 7;
+window.WW_DEFAULT_PRODUCTS = [
+ {
+  "id": "duck-1",
+  "name": "Duck",
+  "category": "Felt",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A soft needle-felted wool duckling, plump and pocket-sized.",
+  "img": "images/image1.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image1.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "peashooter-2",
+  "name": "Peashooter",
+  "category": "Felt",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A needle-felted Peashooter from Plants vs. Zombies, sculpted entirely from wool.",
+  "img": "images/image2.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image2.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "snoopy-3",
+  "name": "Snoopy",
+  "category": "Felt",
+  "sub": "",
+  "price": 8,
+  "priceText": "",
+  "desc": "A cuddly needle-felted Snoopy, hand-poked from soft white wool.",
+  "img": "images/image3.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image3.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "han-quokka-skzoo-4",
+  "name": "Han Quokka Skzoo",
+  "category": "Felt",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A fuzzy needle-felted Han Quokka SKZOO plush, huggably soft.",
+  "img": "images/image4.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image4.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "birthday-stitch-5",
+  "name": "Birthday Stitch",
+  "category": "Felt",
+  "sub": "",
+  "price": 15,
+  "priceText": "",
+  "desc": "A party-ready needle-felted Stitch with a little birthday twist.",
+  "img": "images/image5.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image5.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "pingu-6",
+  "name": "Pingu",
+  "category": "Felt",
+  "sub": "",
+  "price": 12,
+  "priceText": "",
+  "desc": "A little needle-felted Pingu, waddling straight off the workbench.",
+  "img": "images/image6.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image6.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "grandma-7",
+  "name": "Grandma",
+  "category": "Felt",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A wholesome needle-felted grandma figure, made stitch by stitch in wool.",
+  "img": "images/image7.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image7.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "sheep-8",
+  "name": "Sheep",
+  "category": "Felt",
+  "sub": "",
+  "price": 15,
+  "priceText": "",
+  "desc": "A fluffy needle-felted sheep, as soft as the wool it's made from.",
+  "img": "images/image8.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image8.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "gumball-darwin-anais-9",
+  "name": "Gumball, Darwin, Anais",
+  "category": "Felt",
+  "sub": "",
+  "price": 12,
+  "priceText": "$12 each",
+  "desc": "The needle-felted Watterson trio from Gumball, as a wooly little set.",
+  "img": "images/image9.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image9.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "melody-kuromi-10",
+  "name": "Melody & Kuromi",
+  "category": "Felt",
+  "sub": "",
+  "price": 12,
+  "priceText": "$12 each",
+  "desc": "Needle-felted My Melody and Kuromi, a sweet-and-spooky Sanrio pair.",
+  "img": "images/image10.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image10.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "star-mushroom-11",
+  "name": "Star & Mushroom",
+  "category": "Felt",
+  "sub": "",
+  "price": 10,
+  "priceText": "$10 each",
+  "desc": "A cheerful needle-felted star and mushroom duo in soft wool.",
+  "img": "images/image11.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image11.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "sunlit-forest-12",
+  "name": "Sunlit Forest",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 25,
+  "priceText": "",
+  "desc": "A hand-beaded necklace in warm greens and golds, like light through the trees.",
+  "img": "images/image12.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image12.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "pretty-tulip-13",
+  "name": "Pretty Tulip",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 20,
+  "priceText": "",
+  "desc": "A dainty hand-strung necklace crowned with a little beaded tulip.",
+  "img": "images/image13.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image13.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "ocean-breeze-14",
+  "name": "Ocean Breeze",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 25,
+  "priceText": "",
+  "desc": "A breezy blue-and-white beaded necklace with a seaside feel.",
+  "img": "images/image14.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image14.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "earth-wing-15",
+  "name": "Earth Wing",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 30,
+  "priceText": "",
+  "desc": "An earthy hand-beaded necklace with a delicate winged charm.",
+  "img": "images/image15.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image15.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "scalloped-pearl-tulip-16",
+  "name": "Scalloped Pearl Tulip",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 20,
+  "priceText": "",
+  "desc": "A pearl-scalloped necklace with a soft tulip centrepiece.",
+  "img": "images/image16.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image16.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "green-drop-17",
+  "name": "Green Drop",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A simple hand-beaded necklace finished with a single green drop.",
+  "img": "images/image17.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image17.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "golden-bow-18",
+  "name": "Golden Bow",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 3,
+  "priceText": "",
+  "desc": "A petite necklace tied off with a golden beaded bow.",
+  "img": "images/image18.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image18.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "golden-tear-19",
+  "name": "Golden Tear",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A minimalist necklace with one gleaming golden teardrop.",
+  "img": "images/image19.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image19.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "dancing-swirls-20",
+  "name": "Dancing Swirls",
+  "category": "Necklaces",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A playful beaded necklace of swirling, dancing loops.",
+  "img": "images/image20.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image20.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "cherry-bloom-21",
+  "name": "Cherry Bloom",
+  "category": "Sets",
+  "sub": "",
+  "price": 35,
+  "priceText": "",
+  "desc": "A matching necklace-and-bracelet set blooming with beaded cherries.",
+  "img": "images/image21.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image21.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "midnight-constellation-22",
+  "name": "Midnight Constellation",
+  "category": "Sets",
+  "sub": "",
+  "price": 45,
+  "priceText": "",
+  "desc": "A starry jewelry set in deep midnight tones and tiny sparks.",
+  "img": "images/image22.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image22.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "tea-room-porcelain-set-23",
+  "name": "Tea Room Porcelain Set",
+  "category": "Sets",
+  "sub": "",
+  "price": 60,
+  "priceText": "",
+  "desc": "A delicate porcelain-inspired set, dainty as an afternoon tea service.",
+  "img": "images/image23.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image23.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "pretty-in-pink-24",
+  "name": "Pretty In Pink",
+  "category": "Sets",
+  "sub": "",
+  "price": 35,
+  "priceText": "",
+  "desc": "A sweet all-pink jewelry set, coordinated from bead to bow.",
+  "img": "images/image24.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image24.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "midnight-cluster-25",
+  "name": "Midnight Cluster",
+  "category": "Sets",
+  "sub": "",
+  "price": 30,
+  "priceText": "",
+  "desc": "A moody clustered set in inky, midnight-blue beads.",
+  "img": "images/image25.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image25.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "hungry-caterpillar-26",
+  "name": "Hungry Caterpillar",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "A cheery beaded bracelet inspired by the very hungry caterpillar.",
+  "img": "images/image26.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image26.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "crystal-flowers-27",
+  "name": "crystal flowers",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "midnight-bloom-28",
+  "name": "Midnight Bloom",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "A hand-strung bracelet of dark petals on a midnight background.",
+  "img": "images/image27.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image27.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "tidal-petal-in-gold-29",
+  "name": "Tidal Petal In Gold",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 6,
+  "priceText": "",
+  "desc": "A beaded bracelet pairing golden accents with soft petal blues.",
+  "img": "images/image28.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image28.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "fairy-floral-30",
+  "name": "Fairy Floral",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 8,
+  "priceText": "",
+  "desc": "A whimsical floral bracelet fit for a garden fairy.",
+  "img": "images/image29.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image29.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "silver-lining-quartet-31",
+  "name": "Silver Lining Quartet",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 6,
+  "priceText": "",
+  "desc": "Four coordinating silver-toned bracelets, stacked or worn solo.",
+  "img": "images/image30.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image30.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "golden-petals-32",
+  "name": "Golden Petals",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "A hand-beaded bracelet scattered with tiny golden petals.",
+  "img": "images/image31.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image31.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "green-crystal-33",
+  "name": "Green Crystal",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 6,
+  "priceText": "",
+  "desc": "A beaded bracelet strung with cool green crystal beads.",
+  "img": "images/image32.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image32.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "aqua-bracelets-34",
+  "name": "Aqua Bracelets",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "Refreshing aqua-toned beaded bracelets in ocean blues.",
+  "img": "images/image33.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image33.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "glass-tulip-clusters-35",
+  "name": "Glass Tulip Clusters",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 10,
+  "priceText": "",
+  "desc": "A bracelet clustered with little glass tulip beads.",
+  "img": "images/image34.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image34.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "moss-and-sunlight-36",
+  "name": "Moss And Sunlight",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 7,
+  "priceText": "",
+  "desc": "An earthy bracelet mixing mossy greens with warm sunlit gold.",
+  "img": "images/image35.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image35.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "little-pearl-cherry-37",
+  "name": "Little Pearl Cherry",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 6,
+  "priceText": "",
+  "desc": "A pearly bracelet dotted with sweet little cherries.",
+  "img": "images/image36.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image36.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "vanilla-toffee-38",
+  "name": "Vanilla Toffee",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 8,
+  "priceText": "",
+  "desc": "A warm, caramel-toned beaded bracelet in vanilla and toffee.",
+  "img": "images/image37.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image37.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "strawberry-matcha-39",
+  "name": "Strawberry Matcha",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 6,
+  "priceText": "$6 each",
+  "desc": "A pink-and-green bracelet as sweet as a strawberry matcha.",
+  "img": "images/image38.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image38.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "aqua-tide-deep-twilight-40",
+  "name": "Aqua Tide & Deep Twilight",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 6,
+  "priceText": "$6 each",
+  "desc": "A two-tone bracelet pairing aqua tide with deep twilight blues.",
+  "img": "images/image39.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image39.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "beads-links-41",
+  "name": "Beads & Links",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "$5 each",
+  "desc": "A mixed bracelet of beads and dainty chain links.",
+  "img": "images/image40.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image40.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "strawberry-shortcake-42",
+  "name": "Strawberry Shortcake",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 10,
+  "priceText": "$10 each",
+  "desc": "A creamy pink bracelet inspired by strawberry shortcake.",
+  "img": "images/image41.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image41.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "pearl-petal-43",
+  "name": "Pearl Petal",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "A soft bracelet of pearls and delicate beaded petals.",
+  "img": "images/image42.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image42.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "ocean-waves-44",
+  "name": "Ocean Waves",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 8,
+  "priceText": "",
+  "desc": "A rolling blue bracelet that captures the ocean's waves.",
+  "img": "images/image43.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image43.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "aqua-pearl-45",
+  "name": "Aqua Pearl",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "A serene bracelet of aqua beads and gentle pearls.",
+  "img": "images/image44.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image44.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "honey-lilac-46",
+  "name": "Honey & Lilac",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "A pretty bracelet blending honey golds with soft lilac.",
+  "img": "images/image45.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image45.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "rainbow-gemstones-47",
+  "name": "Rainbow Gemstones",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 4,
+  "priceText": "",
+  "desc": "A bright bracelet strung with a rainbow of gemstone beads.",
+  "img": "images/image46.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image46.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "slice-of-summer-48",
+  "name": "Slice Of Summer",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 3,
+  "priceText": "",
+  "desc": "A sunny beaded bracelet that feels like a slice of summer.",
+  "img": "images/image47.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image47.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "golden-speckles-49",
+  "name": "Golden Speckles",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 3,
+  "priceText": "",
+  "desc": "A warm bracelet flecked with tiny golden speckles.",
+  "img": "images/image48.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image48.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "twined-cherry-50",
+  "name": "Twined Cherry",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 8,
+  "priceText": "",
+  "desc": "A dainty bracelet twined with little beaded cherries.",
+  "img": "images/image49.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image49.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "toasted-gold-51",
+  "name": "Toasted Gold",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 3,
+  "priceText": "",
+  "desc": "A rich bracelet in warm, toasted gold tones.",
+  "img": "images/image50.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image50.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "blue-wing-52",
+  "name": "Blue Wing",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "A breezy beaded bracelet with a delicate blue wing charm.",
+  "img": "images/image51.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image51.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "crystal-bow-53",
+  "name": "Crystal Bow",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 5,
+  "priceText": "",
+  "desc": "A sparkling bracelet finished with a crystal beaded bow.",
+  "img": "images/image52.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image52.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "rosette-pearl-54",
+  "name": "Rosette Pearl",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 6,
+  "priceText": "",
+  "desc": "A romantic bracelet of pearls and little beaded rosettes.",
+  "img": "images/image53.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image53.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "orchard-bite-55",
+  "name": "Orchard Bite",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 8,
+  "priceText": "",
+  "desc": "A fruity beaded bracelet fresh from the orchard.",
+  "img": "images/image54.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image54.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "chip-bead-bracelets-56",
+  "name": "Chip Bead Bracelets",
+  "category": "Bracelets",
+  "sub": "Bracelets",
+  "price": 7,
+  "priceText": "",
+  "desc": "Hand-strung bracelets made with natural stone chip beads.",
+  "img": "images/image55.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image55.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "eye-color-bracelets-57",
+  "name": "Eye Color Bracelets",
+  "category": "Bracelets",
+  "sub": "Custom",
+  "price": 7,
+  "priceText": "$7 each",
+  "desc": "Custom bracelets beaded to match your eye colour.",
+  "img": "images/image56.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image56.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "country-bracelets-58",
+  "name": "Country Bracelets",
+  "category": "Bracelets",
+  "sub": "Custom",
+  "price": 7,
+  "priceText": "$7, vary by design",
+  "desc": "Custom bracelets strung in the colours of your country's flag.",
+  "img": "images/image57.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image57.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "name-bracelets-59",
+  "name": "Name Bracelets",
+  "category": "Bracelets",
+  "sub": "Custom",
+  "price": null,
+  "priceText": "vary by design",
+  "desc": "A personalised bracelet spelled out in letter beads.",
+  "img": "images/image58.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image58.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "character-bracelets-60",
+  "name": "Character Bracelets",
+  "category": "Bracelets",
+  "sub": "Custom",
+  "price": 9,
+  "priceText": "",
+  "desc": "Custom bracelets featuring your favourite little character.",
+  "img": "images/image59.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image59.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "core-memory-bracelet-61",
+  "name": "Core Memory Bracelet",
+  "category": "Bracelets",
+  "sub": "Wire wrap",
+  "price": 10,
+  "priceText": "",
+  "desc": "A wire-wrapped bracelet holding a glowing core-memory bead.",
+  "img": "images/image60.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image60.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "silver-pearl-coil-62",
+  "name": "Silver & Pearl Coil",
+  "category": "Bracelets",
+  "sub": "Wire wrap",
+  "price": 6,
+  "priceText": "",
+  "desc": "A wire-wrapped coil bracelet of silver wire and pearls.",
+  "img": "images/image61.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image61.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "porcelain-vine-wrap-63",
+  "name": "Porcelain Vine Wrap",
+  "category": "Bracelets",
+  "sub": "Wire wrap",
+  "price": 8,
+  "priceText": "",
+  "desc": "A wire-wrapped bracelet twining porcelain beads along a vine.",
+  "img": "images/image62.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image62.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "forest-gold-64",
+  "name": "Forest Gold",
+  "category": "Bracelets",
+  "sub": "Loom",
+  "price": 10,
+  "priceText": "",
+  "desc": "A loom-woven bracelet in forest greens and gold.",
+  "img": "images/image63.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image63.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "custom-charms-65",
+  "name": "Custom Charms",
+  "category": "Beadwork",
+  "sub": "",
+  "price": null,
+  "priceText": "vary by design",
+  "desc": "Made-to-order beaded charms designed just for you.",
+  "img": "images/image64.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image64.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "graduation-cap-tassles-66",
+  "name": "Graduation Cap Tassles",
+  "category": "Beadwork",
+  "sub": "",
+  "price": 15,
+  "priceText": "",
+  "desc": "Beaded graduation cap tassels to celebrate the big day.",
+  "img": "images/image65.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image65.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "flower-bouquet-67",
+  "name": "Flower Bouquet",
+  "category": "Beadwork",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A little beaded flower bouquet that never wilts.",
+  "img": "images/image66.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image66.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "masbaha-68",
+  "name": "Masbaha",
+  "category": "Beadwork",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A hand-strung masbaha of prayer beads, made bead by bead.",
+  "img": "images/image67.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image67.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "beaded-pins-69",
+  "name": "Beaded Pins",
+  "category": "Beadwork",
+  "sub": "",
+  "price": 4,
+  "priceText": "",
+  "desc": "Decorative beaded pins to brighten a bag or lapel.",
+  "img": "images/image68.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image68.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "watermelon-custom-70",
+  "name": "Watermelon (Custom)",
+  "category": "Beadwork",
+  "sub": "",
+  "price": 7,
+  "priceText": "",
+  "desc": "A custom beaded watermelon, juicy in pink and green.",
+  "img": "images/image69.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image69.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "happy-beagle-mini-curtain-71",
+  "name": "Happy Beagle Mini Curtain",
+  "category": "Beadwork",
+  "sub": "",
+  "price": 8,
+  "priceText": "",
+  "desc": "A mini beaded curtain featuring a happy little beagle.",
+  "img": "images/image70.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image70.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "bead-curtains-72",
+  "name": "Bead Curtains",
+  "category": "Beadwork",
+  "sub": "",
+  "price": 25,
+  "priceText": "",
+  "desc": "A handmade beaded curtain, strung strand by strand.",
+  "img": "images/image71.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image71.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "ladybug-bee-73",
+  "name": "Ladybug & Bee",
+  "category": "Beadwork",
+  "sub": "",
+  "price": 12,
+  "priceText": "$12 ladybug, $5 bee",
+  "desc": "A charming beaded ladybug-and-bee pair.",
+  "img": "images/image72.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image72.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "custom-characters-74",
+  "name": "Custom Characters",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": null,
+  "priceText": "vary by design",
+  "desc": "Made-to-order polymer clay characters, sculpted to your request.",
+  "img": "images/image73.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image73.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "custom-show-magnets-75",
+  "name": "custom show magnets",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 10,
+  "priceText": "$10 all",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "little-dreamers-magnet-set-76",
+  "name": "little dreamers magnet set",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 7,
+  "priceText": "$7 all",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "goose-keychain-77",
+  "name": "Goose Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 8,
+  "priceText": "",
+  "desc": "A cheeky hand-sculpted polymer clay goose keychain.",
+  "img": "images/image74.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image74.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "spiderman-keychain-78",
+  "name": "Spiderman Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 10,
+  "priceText": "",
+  "desc": "A polymer clay Spider-Man keychain, hand-sculpted and sealed.",
+  "img": "images/image75.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image75.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "cookie-monster-keychain-79",
+  "name": "Cookie Monster Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 10,
+  "priceText": "",
+  "desc": "A polymer clay Cookie Monster keychain, blue and hungry.",
+  "img": "images/image76.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image76.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "totoro-keychain-80",
+  "name": "Totoro Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 9,
+  "priceText": "",
+  "desc": "A hand-sculpted polymer clay Totoro keychain.",
+  "img": "images/image77.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image77.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "toro-inoue-keychain-81",
+  "name": "Toro Inoue Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 5,
+  "priceText": "",
+  "desc": "A polymer clay Toro Inoue cat keychain.",
+  "img": "images/image78.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image78.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "coffee-matcha-keychains-82",
+  "name": "Coffee & Matcha Keychains",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 6,
+  "priceText": "$6 each",
+  "desc": "A polymer clay coffee-and-matcha keychain pair for drink lovers.",
+  "img": "images/image79.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image79.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "snoopy-film-keychain-83",
+  "name": "Snoopy Film Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 15,
+  "priceText": "",
+  "desc": "A polymer clay Snoopy film-reel keychain.",
+  "img": "images/image80.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image80.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "fox-in-spring-keychain-84",
+  "name": "Fox In Spring Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 11,
+  "priceText": "",
+  "desc": "A polymer clay fox keychain surrounded by spring blooms.",
+  "img": "images/image81.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image81.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "sun-moon-magnet-keychains-85",
+  "name": "Sun & Moon Magnet Keychains",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 20,
+  "priceText": "$20 together",
+  "desc": "A polymer clay sun-and-moon set that doubles as keychains or magnets.",
+  "img": "images/image82.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image82.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "pickle-keychain-86",
+  "name": "Pickle Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 9,
+  "priceText": "",
+  "desc": "A quirky hand-sculpted polymer clay pickle keychain.",
+  "img": "images/image83.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image83.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "panda-narutomaki-fishcake-keychain-87",
+  "name": "Panda & Narutomaki Fishcake Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 7,
+  "priceText": "",
+  "desc": "A polymer clay panda-and-narutomaki keychain duo.",
+  "img": "images/image84.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image84.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "orange-keychain-88",
+  "name": "Orange Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 9.5,
+  "priceText": "",
+  "desc": "A juicy polymer clay orange-slice keychain.",
+  "img": "images/image85.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image85.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "swiss-roll-keychain-89",
+  "name": "Swiss Roll Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 8,
+  "priceText": "",
+  "desc": "A polymer clay swiss roll keychain, sweet enough to eat.",
+  "img": "images/image86.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image86.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "linzer-cookie-keychain-90",
+  "name": "Linzer Cookie Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 5,
+  "priceText": "",
+  "desc": "A polymer clay linzer cookie keychain with a heart cut-out.",
+  "img": "images/image87.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image87.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "frog-mushroom-keychain-91",
+  "name": "Frog & Mushroom Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 8,
+  "priceText": "",
+  "desc": "A polymer clay frog-on-a-mushroom keychain.",
+  "img": "images/image88.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image88.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "gingerbread-keychain-92",
+  "name": "Gingerbread Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 8,
+  "priceText": "",
+  "desc": "A polymer clay gingerbread keychain, cozy all year round.",
+  "img": "images/image89.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image89.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "banananana-keychain-93",
+  "name": "Banananana Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 10,
+  "priceText": "",
+  "desc": "A playful polymer clay banana keychain.",
+  "img": "images/image90.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image90.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "amuseables-shelf-sweets-94",
+  "name": "Amuseables Shelf Sweets",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 14,
+  "priceText": "$14 cake, $9 croissant",
+  "desc": "Hand-sculpted polymer clay shelf sweets to display and adore.",
+  "img": "images/image91.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image91.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "cookie-tic-tac-toe-95",
+  "name": "Cookie Tic Tac Toe",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 15,
+  "priceText": "",
+  "desc": "A polymer clay tic-tac-toe set with cookie playing pieces.",
+  "img": "images/image92.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image92.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "pastry-tic-tac-toe-96",
+  "name": "pastry tic tac toe",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 15,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "mini-donut-tic-tac-toe-97",
+  "name": "Mini Donut Tic Tac Toe",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 10,
+  "priceText": "",
+  "desc": "A mini polymer clay tic-tac-toe set with tiny donut pieces.",
+  "img": "images/image93.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image93.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "mini-strawberry-tic-tac-toe-98",
+  "name": "Mini Strawberry Tic Tac Toe",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 10,
+  "priceText": "",
+  "desc": "A mini polymer clay tic-tac-toe set with strawberry pieces.",
+  "img": "images/image93.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image93.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "sponge-patrick-stars-keychains-99",
+  "name": "Sponge & Patrick Stars Keychains",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 12,
+  "priceText": "$12 each",
+  "desc": "A polymer clay SpongeBob-and-Patrick keychain pair.",
+  "img": "images/image94.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image94.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "we-bare-bears-keychain-100",
+  "name": "We Bare Bears Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 15,
+  "priceText": "",
+  "desc": "A polymer clay We Bare Bears keychain.",
+  "img": "images/image95.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image95.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "bikini-bottom-mini-crew-101",
+  "name": "Bikini Bottom Mini Crew",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 35,
+  "priceText": "$35 all",
+  "desc": "A mini polymer clay crew straight from Bikini Bottom.",
+  "img": "images/image96.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image96.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "cloud-keychain-102",
+  "name": "Cloud Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 8,
+  "priceText": "",
+  "desc": "A dreamy polymer clay cloud keychain.",
+  "img": "images/image97.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image97.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "strawberry-jam-keychain-103",
+  "name": "Strawberry Jam Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 15,
+  "priceText": "",
+  "desc": "A polymer clay strawberry-jam jar keychain.",
+  "img": "images/image98.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image98.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "miffy-keychain-104",
+  "name": "Miffy Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 9,
+  "priceText": "",
+  "desc": "A polymer clay Miffy keychain, simple and sweet.",
+  "img": "images/image99.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image99.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "cookies-milk-keychain-and-anti-dust-plug-105",
+  "name": "Cookies & Milk Keychain And Anti-dust Plug",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 12,
+  "priceText": "$12 together",
+  "desc": "A polymer clay cookies-and-milk keychain with a matching anti-dust phone plug.",
+  "img": "images/image100.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image100.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "lovely-bear-keychain-106",
+  "name": "Lovely Bear Keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 10,
+  "priceText": "",
+  "desc": "A lovable polymer clay bear keychain.",
+  "img": "images/image101.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image101.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "custom-hobbit-keychain-107",
+  "name": "custom hobbit keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 20,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "beagle-portraits-keychain-108",
+  "name": "beagle portraits keychain",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 16,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "sleeping-beagle-desk-buddy-custom-109",
+  "name": "sleeping beagle desk buddy (custom)",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 10,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "beagle-in-a-strawberry-110",
+  "name": "beagle in a strawberry",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 13,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "beagle-phone-hipper-111",
+  "name": "beagle phone hipper",
+  "category": "Clay",
+  "sub": "Clay",
+  "price": 20,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "strawberry-beagle-112",
+  "name": "Strawberry Beagle",
+  "category": "Clay",
+  "sub": "Miniature",
+  "price": 10,
+  "priceText": "",
+  "desc": "A miniature polymer clay beagle tucked inside a strawberry.",
+  "img": "images/image102.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image102.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "happy-sponge-113",
+  "name": "happy sponge",
+  "category": "Clay",
+  "sub": "Miniature",
+  "price": 15,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "phone-hippers-114",
+  "name": "phone hippers",
+  "category": "Clay",
+  "sub": "Miniature",
+  "price": 12,
+  "priceText": "$12 each",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "graduate-ducks-custom-115",
+  "name": "Graduate Ducks (Custom)",
+  "category": "Keychains",
+  "sub": "",
+  "price": 7,
+  "priceText": "$7 each",
+  "desc": "Custom graduation duck keychains to mark the milestone.",
+  "img": "images/image103.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image103.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "aslfua-custom-116",
+  "name": "ASLFUA (Custom)",
+  "category": "Keychains",
+  "sub": "",
+  "price": 15,
+  "priceText": "",
+  "desc": "A custom ASLFUA keychain, made to your request.",
+  "img": "images/image104.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image104.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "applejack-custom-117",
+  "name": "Applejack (custom)",
+  "category": "Keychains",
+  "sub": "",
+  "price": 20,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "powerpuff-custom-118",
+  "name": "Powerpuff (Custom)",
+  "category": "Keychains",
+  "sub": "",
+  "price": 6,
+  "priceText": "$6 each",
+  "desc": "A custom Powerpuff Girls keychain.",
+  "img": "images/image105.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image105.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "deer-with-name-custom-119",
+  "name": "Deer With Name (Custom)",
+  "category": "Keychains",
+  "sub": "",
+  "price": 25,
+  "priceText": "",
+  "desc": "A custom deer keychain personalised with a name.",
+  "img": "images/image106.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image106.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "initial-keychain-custom-120",
+  "name": "Initial Keychain (Custom)",
+  "category": "Keychains",
+  "sub": "",
+  "price": 6,
+  "priceText": "",
+  "desc": "A custom keychain featuring the initial of your choice.",
+  "img": "images/image107.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image107.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "gummy-bears-121",
+  "name": "Gummy Bears",
+  "category": "Keychains",
+  "sub": "",
+  "price": 6,
+  "priceText": "",
+  "desc": "A sweet gummy-bear keychain in candy colours.",
+  "img": "images/image108.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image108.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "plum-porcelain-122",
+  "name": "Plum Porcelain",
+  "category": "Keychains",
+  "sub": "",
+  "price": 7,
+  "priceText": "",
+  "desc": "A porcelain-style keychain in soft plum tones.",
+  "img": "images/image109.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image109.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "celestial-blossom-123",
+  "name": "Celestial Blossom",
+  "category": "Keychains",
+  "sub": "",
+  "price": 9,
+  "priceText": "",
+  "desc": "A celestial keychain blooming with tiny stars and flowers.",
+  "img": "images/image110.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image110.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "gold-ivory-124",
+  "name": "Gold & Ivory",
+  "category": "Keychains",
+  "sub": "",
+  "price": 7,
+  "priceText": "",
+  "desc": "An elegant keychain in gold and ivory beads.",
+  "img": "images/image111.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image111.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "sakura-falls-125",
+  "name": "Sakura Falls",
+  "category": "Keychains",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "A keychain drifting with delicate sakura petals.",
+  "img": "images/image112.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image112.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "pink-pop-126",
+  "name": "Pink Pop",
+  "category": "Keychains",
+  "sub": "",
+  "price": 13,
+  "priceText": "",
+  "desc": "A bright, poppy pink keychain.",
+  "img": "images/image113.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image113.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "chocolate-cake-anti-dust-phone-plug-127",
+  "name": "Chocolate Cake- Anti-dust Phone Plug",
+  "category": "Keychains",
+  "sub": "",
+  "price": 6,
+  "priceText": "",
+  "desc": "A polymer clay chocolate-cake anti-dust plug for your phone.",
+  "img": "images/image114.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image114.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "balloon-dog-128",
+  "name": "Balloon Dog",
+  "category": "Keychains",
+  "sub": "",
+  "price": 3,
+  "priceText": "$3 each",
+  "desc": "A glossy balloon-dog keychain with a playful twist.",
+  "img": "images/image115.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image115.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "foodie-set-129",
+  "name": "Foodie Set",
+  "category": "Keychains",
+  "sub": "",
+  "price": null,
+  "priceText": "vary by design",
+  "desc": "A little foodie-themed keychain set for snack lovers.",
+  "img": "images/image116.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image116.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "jelly-stars-130",
+  "name": "Jelly Stars",
+  "category": "Keychains",
+  "sub": "",
+  "price": 4,
+  "priceText": "$4 each",
+  "desc": "A keychain of translucent, jelly-like stars.",
+  "img": "images/image117.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image117.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "heart-wands-131",
+  "name": "Heart Wands",
+  "category": "Keychains",
+  "sub": "",
+  "price": 5,
+  "priceText": "",
+  "desc": "A sparkly heart-wand keychain.",
+  "img": "images/image118.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image118.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "garden-glass-tulips-132",
+  "name": "Garden Glass Tulips",
+  "category": "Keychains",
+  "sub": "",
+  "price": 5,
+  "priceText": "",
+  "desc": "A keychain clustered with tiny glass garden tulips.",
+  "img": "images/image119.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image119.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "blue-candied-133",
+  "name": "Blue Candied",
+  "category": "Keychains",
+  "sub": "",
+  "price": 6,
+  "priceText": "",
+  "desc": "A candy-blue beaded keychain.",
+  "img": "images/image120.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image120.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "tempest-tide-134",
+  "name": "Tempest & Tide",
+  "category": "Keychains",
+  "sub": "",
+  "price": 6,
+  "priceText": "",
+  "desc": "A stormy blue keychain of tempest and tide.",
+  "img": "images/image121.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image121.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "bell-flower-garden-135",
+  "name": "Bell Flower Garden",
+  "category": "Keychains",
+  "sub": "",
+  "price": 5,
+  "priceText": "",
+  "desc": "A keychain strung with a little garden of bell flowers.",
+  "img": "images/image122.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image122.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "jellybean-ghosts-136",
+  "name": "Jellybean Ghosts",
+  "category": "Keychains",
+  "sub": "",
+  "price": 8,
+  "priceText": "$8 each",
+  "desc": "A cute keychain of jellybean-shaped little ghosts.",
+  "img": "images/image123.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image123.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "kawaii-character-keychains-137",
+  "name": "Kawaii Character Keychains",
+  "category": "Keychains",
+  "sub": "",
+  "price": 8,
+  "priceText": "",
+  "desc": "Assorted kawaii character keychains, adorable all around.",
+  "img": "images/image124.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image124.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "strawberry-shortcake-keychains-138",
+  "name": "Strawberry Shortcake Keychains",
+  "category": "Keychains",
+  "sub": "",
+  "price": null,
+  "priceText": "vary by design",
+  "desc": "Strawberry shortcake keychains, sweet and creamy.",
+  "img": "images/image125.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image125.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "mocha-mallow-charm-139",
+  "name": "Mocha Mallow Charm",
+  "category": "Keychains",
+  "sub": "",
+  "price": 6,
+  "priceText": "",
+  "desc": "A cozy mocha-marshmallow charm keychain.",
+  "img": "images/image126.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image126.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "whispy-petals-140",
+  "name": "Whispy Petals",
+  "category": "Keychains",
+  "sub": "",
+  "price": 7,
+  "priceText": "$7 each",
+  "desc": "A delicate keychain of wispy, floating petals.",
+  "img": "images/image127.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image127.jpeg"
+  ],
+  "options": [
+   {
+    "name": "Colour",
+    "choices": [
+     {
+      "label": "Colour 1"
+     },
+     {
+      "label": "Colour 2"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "playful-rockers-141",
+  "name": "Playful Rockers",
+  "category": "Keychains",
+  "sub": "",
+  "price": 7,
+  "priceText": "$7 each",
+  "desc": "A fun keychain of little playful rockers.",
+  "img": "images/image128.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image128.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "paper-crane-142",
+  "name": "Paper Crane",
+  "category": "Keychains",
+  "sub": "",
+  "price": 5,
+  "priceText": "",
+  "desc": "A beaded paper-crane keychain, folded in beads.",
+  "img": "images/image129.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image129.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "mini-flower-cluster-143",
+  "name": "Mini Flower Cluster",
+  "category": "Keychains",
+  "sub": "",
+  "price": 4,
+  "priceText": "",
+  "desc": "A keychain with a mini cluster of beaded flowers.",
+  "img": "images/image130.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image130.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "citrus-bell-charm-144",
+  "name": "Citrus Bell Charm",
+  "category": "Keychains",
+  "sub": "",
+  "price": 4,
+  "priceText": "",
+  "desc": "A zesty citrus bell charm keychain.",
+  "img": "images/image131.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image131.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "pastel-bell-drops-145",
+  "name": "Pastel Bell Drops",
+  "category": "Keychains",
+  "sub": "",
+  "price": 8,
+  "priceText": "",
+  "desc": "A keychain of soft pastel bell drops.",
+  "img": "images/image132.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image132.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "flutter-fairy-146",
+  "name": "Flutter Fairy",
+  "category": "Keychains",
+  "sub": "",
+  "price": 9,
+  "priceText": "",
+  "desc": "A whimsical fluttering-fairy keychain.",
+  "img": "images/image133.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image133.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "golden-cherry-147",
+  "name": "Golden Cherry",
+  "category": "Keychains",
+  "sub": "",
+  "price": 8,
+  "priceText": "",
+  "desc": "A keychain topped with a golden beaded cherry.",
+  "img": "images/image134.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image134.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "ice-cream-sundaes-148",
+  "name": "Ice Cream Sundaes",
+  "category": "Keychains",
+  "sub": "",
+  "price": 5,
+  "priceText": "$5 each",
+  "desc": "A sweet ice-cream-sundae keychain.",
+  "img": "images/image135.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image135.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "forage-drops-149",
+  "name": "Forage Drops",
+  "category": "Earrings",
+  "sub": "",
+  "price": 7,
+  "priceText": "",
+  "desc": "Hand-beaded drop earrings inspired by woodland foraging.",
+  "img": "images/image136.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image136.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "tiny-bloom-drops-150",
+  "name": "Tiny Bloom Drops",
+  "category": "Earrings",
+  "sub": "",
+  "price": 10,
+  "priceText": "",
+  "desc": "Delicate drop earrings with tiny beaded blooms.",
+  "img": "images/image137.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image137.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "beaded-clementines-151",
+  "name": "beaded clementines",
+  "category": "Earrings",
+  "sub": "",
+  "price": 8,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "falling-blossom-152",
+  "name": "Falling Blossom",
+  "category": "Earrings",
+  "sub": "",
+  "price": 7,
+  "priceText": "",
+  "desc": "Dangling earrings like softly falling blossoms.",
+  "img": "images/image138.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image138.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "dream-jelly-153",
+  "name": "dream jelly",
+  "category": "Earrings",
+  "sub": "",
+  "price": 4,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "pearl-swirl-drop-154",
+  "name": "pearl swirl drop",
+  "category": "Earrings",
+  "sub": "",
+  "price": 3,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "spring-quartz-155",
+  "name": "Spring Quartz",
+  "category": "Earrings",
+  "sub": "",
+  "price": 7,
+  "priceText": "",
+  "desc": "Beaded earrings with fresh, spring-toned quartz.",
+  "img": "images/image139.jpeg",
+  "sold": false,
+  "imgs": [
+   "images/image139.jpeg"
+  ],
+  "options": []
+ },
+ {
+  "id": "waffle-156",
+  "name": "waffle",
+  "category": "Crochet",
+  "sub": "Bags",
+  "price": 35,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "jam-157",
+  "name": "jam",
+  "category": "Crochet",
+  "sub": "Bags",
+  "price": 50,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "ice-cream-lip-balm-holder-158",
+  "name": "ice cream lip balm holder",
+  "category": "Crochet",
+  "sub": "Bags",
+  "price": 7,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "vest-159",
+  "name": "vest",
+  "category": "Crochet",
+  "sub": "Clothing",
+  "price": 75,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "skirt-160",
+  "name": "skirt",
+  "category": "Crochet",
+  "sub": "Clothing",
+  "price": 90,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "silly-summer-dress-161",
+  "name": "silly summer dress",
+  "category": "Crochet",
+  "sub": "Clothing",
+  "price": 200,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "tulips-1-for-6-2-for-10-3-for-24-w-basket-162",
+  "name": "Tulip coasters (with basket)",
+  "category": "Crochet",
+  "sub": "Coasters",
+  "price": 6,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": [
+   {
+    "name": "Quantity",
+    "choices": [
+     {
+      "label": "1",
+      "price": 6
+     },
+     {
+      "label": "2",
+      "price": 10
+     },
+     {
+      "label": "3",
+      "price": 24
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "lily-of-the-valley-1-with-basket-163",
+  "name": "lily of the valley (1) with basket",
+  "category": "Crochet",
+  "sub": "Coasters",
+  "price": 10,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "rose-bouquet-164",
+  "name": "rose bouquet",
+  "category": "Crochet",
+  "sub": "Blankets",
+  "price": 60,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "lily-of-the-valley-bouquet-165",
+  "name": "lily of the valley bouquet",
+  "category": "Crochet",
+  "sub": "Blankets",
+  "price": 60,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "sunflower-bouquet-166",
+  "name": "sunflower bouquet",
+  "category": "Crochet",
+  "sub": "Blankets",
+  "price": 80,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "wisteria-garland-167",
+  "name": "wisteria garland",
+  "category": "Crochet",
+  "sub": "Decor",
+  "price": 40,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "monsters-hanging-pot-168",
+  "name": "monsters hanging pot",
+  "category": "Crochet",
+  "sub": "Decor",
+  "price": 15,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "lily-of-the-valley-keychain-169",
+  "name": "lily of the valley keychain",
+  "category": "Crochet",
+  "sub": "Decor",
+  "price": 7,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "wisteria-keychain-170",
+  "name": "wisteria keychain",
+  "category": "Crochet",
+  "sub": "Decor",
+  "price": 7,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "mini-froggy-171",
+  "name": "mini froggy",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 7,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "jellyfish-172",
+  "name": "jellyfish",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 7,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "icecream-jellyfish-173",
+  "name": "icecream jellyfish",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 10,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "icecream-turtle-174",
+  "name": "icecream turtle",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 15,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "cake-turtle-175",
+  "name": "cake turtle",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 15,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "peas-in-a-pod-176",
+  "name": "peas in a pod",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 10,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "gamer-kitty-177",
+  "name": "gamer kitty",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 15,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "personality-stingray-178",
+  "name": "personality stingray",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 7,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "giant-axolotl-179",
+  "name": "giant axolotl",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 80,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "dragon-180",
+  "name": "dragon",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 50,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ },
+ {
+  "id": "pommy-the-clown-181",
+  "name": "pommy the clown",
+  "category": "Crochet",
+  "sub": "Plush",
+  "price": 20,
+  "priceText": "",
+  "desc": "",
+  "img": "",
+  "sold": false,
+  "imgs": [],
+  "options": []
+ }
+];

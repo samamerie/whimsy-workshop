@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Whimsy Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brandmark"><img src="logo-mark.png" alt="" class="brand-logo">Whimsy&nbsp;Workshop</a>
+    <nav class="menu">
+      <a href="shop.html">View shop</a>
+      <a href="index.html">Home</a>
+    </nav>
+    <div class="nav-right"><span class="eyebrow">Admin</span></div>
+  </div>
+</header>
+
+<!-- lock gate -->
+<div id="lock" class="lock" style="display:none;">
+  <h2>Workshop admin</h2>
+  <p>Log in to manage your products.</p>
+  <input id="lockEmail" class="lk" type="email" placeholder="email" autocomplete="username" />
+  <input id="lockPass" class="lk" type="password" placeholder="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryUnlock()" />
+  <button class="abtn primary" style="width:100%;" onclick="tryUnlock()">Log in</button>
+  <button id="netlifyBtn" class="abtn" style="width:100%;margin-top:.6rem;display:none;" onclick="netlifyIdentity.open()">Log in with Netlify</button>
+  <p id="lockErr" style="color:var(--rose-deep);margin-top:.8rem;display:none;">Those details don't match — try again.</p>
+</div>
+
+<!-- admin app -->
+<div id="app" class="admin-wrap" style="display:none;">
+  <div class="admin-head">
+    <p class="eyebrow">Your workshop</p>
+    <h1>Manage the shop</h1>
+    <p>Edit anything — changes save in this browser. Use the Download buttons to make them live.</p>
+    <div style="text-align:center;margin-top:.6rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;">
+      <button class="abtn primary" onclick="publishLive()">✦ Publish to website</button>
+      <button class="abtn" onclick="downloadAll()">⬇ Download all data (3 files)</button>
+    </div>
+  </div>
+
+  <div class="admin-tabs">
+    <button class="abtn tab-btn active" data-tab="products" onclick="switchTab('products')">Products</button>
+    <button class="abtn tab-btn" data-tab="events" onclick="switchTab('events')">Markets &amp; events</button>
+    <button class="abtn tab-btn" data-tab="about" onclick="switchTab('about')">About photo</button>
+  </div>
+
+  <div id="tab-products">
+    <div class="admin-bar">
+      <input type="text" id="search" class="grow" placeholder="Search products…" oninput="renderList()" />
+      <select id="catFilter" onchange="renderList()"></select>
+      <button class="abtn primary" onclick="addNew()">+ Add product</button>
+      <button class="abtn" onclick="downloadFile()">Download products.js</button>
+      <button class="abtn" onclick="document.getElementById('importFile').click()">Import</button>
+      <input type="file" id="importFile" accept=".js,.json" style="display:none" onchange="importFile(event)" />
+      <button class="abtn danger" onclick="resetAll()">Reset to original</button>
+    </div>
+    <p class="admin-count" id="countLine"></p>
+    <div class="admin-list" id="list"></div>
+  </div>
+
+  <div id="tab-events" style="display:none;">
+    <div class="admin-bar">
+      <button class="abtn primary" onclick="addEvent()">+ Add event</button>
+      <button class="abtn primary" onclick="saveEventsList()">Save events</button>
+      <button class="abtn" onclick="downloadEvents()">Download events.js</button>
+      <button class="abtn danger" onclick="resetEventsList()">Reset to original</button>
+    </div>
+    <p class="admin-count" id="evCount"></p>
+    <div class="admin-list" id="eventsList"></div>
+  </div>
+
+  <div id="tab-about" style="display:none;">
+    <div class="admin-bar">
+      <button class="abtn primary" onclick="document.getElementById('aboutUpload').click()">Upload photo</button>
+      <input type="file" id="aboutUpload" accept="image/*" style="display:none" onchange="uploadAbout(event)" />
+      <button class="abtn" onclick="downloadSettings()">Download settings.js</button>
+      <button class="abtn danger" onclick="resetAbout()">Remove photo</button>
+    </div>
+    <p class="admin-count">This is the big photo at the top of the About page.</p>
+    <div id="aboutPreview" style="max-width:300px;margin:0 auto;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="products.js"></script>
+<script src="events.js"></script>
+<script src="settings.js"></script>
+<script src="store.js"></script>
+<script>
+  const ADMIN_EMAIL = "samamerie0@gmail.com";
+  const ADMIN_PASSWORD = "whimsy";   /* change me — note: client-side only, not real security */
+
+  function tryUnlock(){
+    const em = (document.getElementById("lockEmail").value||"").trim().toLowerCase();
+    const pw = document.getElementById("lockPass").value;
+    if(em === ADMIN_EMAIL && pw === ADMIN_PASSWORD){ sessionStorage.setItem("ww_admin_ok","1"); showApp(); }
+    else { document.getElementById("lockErr").style.display="block"; }
+  }
+  function showApp(){
+    document.getElementById("lock").style.display="none";
+    document.getElementById("app").style.display="block";
+    buildCatFilter();
+    renderList();
+  }
+  /* Netlify Identity (real auth on the live site). Falls back to the passcode form locally. */
+  if(window.netlifyIdentity){
+    netlifyIdentity.on("init", user => {
+      if(user && user.email && user.email.toLowerCase() === ADMIN_EMAIL){
+        sessionStorage.setItem("ww_admin_ok","1");
+      }
+      const btn = document.getElementById("netlifyBtn");
+      if(btn) btn.style.display = "block";
+    });
+    netlifyIdentity.on("login", user => {
+      if(user.email && user.email.toLowerCase() === ADMIN_EMAIL){
+        sessionStorage.setItem("ww_admin_ok","1"); netlifyIdentity.close(); showApp();
+      } else { alert("This account isn't authorised for the workshop admin."); netlifyIdentity.logout(); }
+    });
+    netlifyIdentity.on("logout", () => { sessionStorage.removeItem("ww_admin_ok"); });
+    netlifyIdentity.init();
+  }
+
+  if(sessionStorage.getItem("ww_admin_ok")==="1"){ showApp(); }
+  else { document.getElementById("lock").style.display="block"; document.getElementById("lockEmail").focus(); }
+
+  function toast(msg){
+    const t=document.getElementById("toast"); t.textContent=msg;
+    t.classList.add("show"); clearTimeout(window._tt);
+    window._tt=setTimeout(()=>t.classList.remove("show"),1900);
+  }
+
+  function allCategories(){
+    const set = [...WWStore.CAT_ORDER];
+    WWStore.all().forEach(p=>{ if(p.category && !set.includes(p.category)) set.push(p.category); });
+    return set;
+  }
+  function allSubs(){
+    const set=[]; WWStore.all().forEach(p=>{ if(p.sub && !set.includes(p.sub)) set.push(p.sub); });
+    ["Bracelets","Floral","Wire wrap","Custom","Loom","Clay","Miniature","Plush","Bags","Clothing","Decor","Coasters","Blankets"].forEach(s=>{ if(!set.includes(s)) set.push(s); });
+    return set.sort();
+  }
+  function buildCatFilter(){
+    const sel=document.getElementById("catFilter");
+    sel.innerHTML = '<option value="All">All categories</option>' +
+      allCategories().map(c=>`<option value="${c}">${c}</option>`).join("");
+  }
+
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+  function renderList(){
+    const q = (document.getElementById("search").value||"").toLowerCase();
+    const catF = document.getElementById("catFilter").value;
+    const cats = allCategories(), subs = allSubs();
+    const items = WWStore.all().filter(p =>
+      (catF==="All" || p.category===catF) &&
+      (!q || (p.name||"").toLowerCase().includes(q)));
+    document.getElementById("countLine").textContent =
+      `${items.length} of ${WWStore.all().length} products` + (WWStore.isCustomized()? " · edited (not yet downloaded)":"");
+
+    const subDatalist = `<datalist id="subOpts">${subs.map(s=>`<option value="${esc(s)}">`).join("")}</datalist>`;
+    const list = document.getElementById("list");
+    list.innerHTML = subDatalist + items.map(p => cardHTML(p, cats)).join("");
+    list.querySelectorAll(".admin-item").forEach(card => { renderGallery(card); renderOpts(card); });
+  }
+
+  function cardHTML(p, cats){
+    const catOpts = cats.map(c=>`<option value="${c}"${c===p.category?" selected":""}>${c}</option>`).join("");
+    const imgs = (Array.isArray(p.imgs)&&p.imgs.length) ? p.imgs : (p.img?[p.img]:[]);
+    const opts = Array.isArray(p.options) ? p.options : [];
+    return `
+    <div class="admin-item" data-id="${esc(p.id)}" data-imgs="${esc(JSON.stringify(imgs))}" data-opts="${esc(JSON.stringify(opts))}" oninput="markDirty(this)">
+      <div class="admin-gallery"></div>
+      <div class="admin-fields">
+        <label class="wide">Name<input class="f-name" type="text" value="${esc(p.name)}"></label>
+        <label>Category<select class="f-cat">${catOpts}</select></label>
+        <label>Subcategory<input class="f-sub" type="text" list="subOpts" value="${esc(p.sub)}"></label>
+        <label>Price ($)<input class="f-price" type="number" min="0" step="1" value="${p.price==null?"":p.price}"></label>
+        <label>Price label (optional)<input class="f-ptext" type="text" placeholder="e.g. $12 each" value="${esc(p.priceText)}"></label>
+        <label class="check wide"><input type="checkbox" class="f-sold" ${p.sold?"checked":""}> Mark as sold out</label>
+        <div class="wide">
+          <div class="qv-opt-name" style="margin-bottom:.4rem">Options — colour / design / quantity</div>
+          <div class="opt-editor"></div>
+          <button class="abtn opt-mini opt-addgroup" type="button" style="margin-top:.4rem">+ Add option</button>
+        </div>
+        <label class="wide">Description<textarea class="f-desc">${esc(p.desc)}</textarea></label>
+        <div class="admin-actions">
+          <span class="id">id: ${esc(p.id)}</span>
+          <button class="abtn danger" onclick="del('${esc(p.id)}')">Delete</button>
+          <button class="abtn primary" onclick="saveItem(this)">Save</button>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function markDirty(card){ card.classList.add("dirty"); }
+
+  /* ---- photo gallery (multiple photos) ---- */
+  function renderGallery(card){
+    const g = card.querySelector(".admin-gallery");
+    const imgs = JSON.parse(card.dataset.imgs||"[]");
+    g.innerHTML = imgs.map((src,i)=>
+      `<div class="admin-gthumb"><img src="${esc(src)}" alt=""><button type="button" class="g-rm" data-i="${i}" aria-label="Remove photo">×</button></div>`).join("")
+      + `<label class="admin-addphoto" title="Add photo">+<input type="file" accept="image/*" class="g-add" style="display:none"></label>`;
+    g.querySelectorAll(".g-rm").forEach(b=> b.onclick=()=>{
+      const a=JSON.parse(card.dataset.imgs||"[]"); a.splice(+b.dataset.i,1);
+      card.dataset.imgs=JSON.stringify(a); renderGallery(card); markDirty(card);
+    });
+    g.querySelector(".g-add").onchange = ev=> addPhoto(ev, card);
+  }
+  function addPhoto(ev, card){
+    const file = ev.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const max=900; let {width:w, height:h} = img;
+        if(w>max || h>max){ const r=Math.min(max/w,max/h); w=Math.round(w*r); h=Math.round(h*r); }
+        const c=document.createElement("canvas"); c.width=w; c.height=h;
+        c.getContext("2d").drawImage(img,0,0,w,h);
+        const data=c.toDataURL("image/jpeg",0.82);
+        const a=JSON.parse(card.dataset.imgs||"[]"); a.push(data);
+        card.dataset.imgs=JSON.stringify(a); renderGallery(card); markDirty(card);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ---- options editor (colour / design / quantity) ---- */
+  function choiceHTML(c){
+    c = c || {};
+    return `<div class="opt-choice-row">
+      <input class="opt-clabel" placeholder="Label (e.g. Pink)" value="${esc(c.label||"")}">
+      <input class="opt-cprice" type="number" min="0" step="1" placeholder="$ (optional)" value="${c.price!=null?c.price:""}">
+      <button type="button" class="abtn danger opt-mini opt-rmchoice" aria-label="Remove choice">×</button>
+    </div>`;
+  }
+  function groupHTML(g){
+    g = g || { name:"", choices:[{}] };
+    const choices = (g.choices && g.choices.length ? g.choices : [{}]);
+    return `<div class="opt-group">
+      <div class="opt-group-head">
+        <input class="opt-name" placeholder="Option name (e.g. Colour, Quantity)" value="${esc(g.name||"")}">
+        <button type="button" class="abtn danger opt-mini opt-rmgroup">Remove</button>
+      </div>
+      <div class="opt-choices">${choices.map(choiceHTML).join("")}</div>
+      <button type="button" class="abtn opt-mini opt-addchoice">+ Choice</button>
+    </div>`;
+  }
+  function renderOpts(card){
+    const editor = card.querySelector(".opt-editor");
+    const opts = JSON.parse(card.dataset.opts||"[]");
+    editor.innerHTML = opts.map(groupHTML).join("");
+    editor.onclick = e => {
+      if(e.target.closest(".opt-rmgroup")){ e.target.closest(".opt-group").remove(); markDirty(card); }
+      else if(e.target.closest(".opt-addchoice")){ e.target.closest(".opt-group").querySelector(".opt-choices").insertAdjacentHTML("beforeend", choiceHTML({})); markDirty(card); }
+      else if(e.target.closest(".opt-rmchoice")){ e.target.closest(".opt-choice-row").remove(); markDirty(card); }
+    };
+    card.querySelector(".opt-addgroup").onclick = () => { editor.insertAdjacentHTML("beforeend", groupHTML()); markDirty(card); };
+  }
+
+  function readCard(card){
+    const price = card.querySelector(".f-price").value;
+    const imgs = JSON.parse(card.dataset.imgs||"[]");
+    const options = [];
+    card.querySelectorAll(".opt-group").forEach(g=>{
+      const name = g.querySelector(".opt-name").value.trim();
+      const choices = [];
+      g.querySelectorAll(".opt-choice-row").forEach(r=>{
+        const label = r.querySelector(".opt-clabel").value.trim();
+        const pv = r.querySelector(".opt-cprice").value;
+        if(label){ const c={label}; if(pv!=="") c.price=Number(pv); choices.push(c); }
+      });
+      if(name && choices.length) options.push({ name, choices });
+    });
+    return {
+      id: card.dataset.id,
+      name: card.querySelector(".f-name").value.trim(),
+      category: card.querySelector(".f-cat").value,
+      sub: card.querySelector(".f-sub").value.trim(),
+      price: price==="" ? null : Number(price),
+      priceText: card.querySelector(".f-ptext").value.trim(),
+      desc: card.querySelector(".f-desc").value.trim(),
+      imgs: imgs,
+      img: imgs[0] || "",
+      options: options,
+      sold: card.querySelector(".f-sold").checked,
+    };
+  }
+  function saveItem(btn){
+    const card = btn.closest(".admin-item");
+    const prod = readCard(card);
+    if(!prod.name){ toast("Give it a name first ✦"); return; }
+    const ok = WWStore.upsert(prod);
+    if(!ok){ toast("Storage full — download & trim photos"); return; }
+    card.classList.remove("dirty");
+    buildCatFilter();
+    toast(prod.name + " saved ✦");
+    document.getElementById("countLine").textContent =
+      `${WWStore.all().length} products · edited (not yet downloaded)`;
+  }
+  function del(id){
+    const p = WWStore.all().find(x=>x.id===id);
+    if(!confirm(`Delete “${p?p.name:id}”? This can't be undone (unless you re-import).`)) return;
+    WWStore.remove(id);
+    renderList();
+    toast("Deleted ✦");
+  }
+  function addNew(){
+    const prod = { id: WWStore.newId("new-item"), name:"New product", category:"Bracelets",
+      sub:"", price:null, priceText:"", desc:"", img:"", imgs:[], options:[], sold:false };
+    WWStore.upsert(prod);
+    document.getElementById("search").value="";
+    document.getElementById("catFilter").value="All";
+    renderList();
+    const el = document.querySelector(`[data-id="${prod.id}"]`);
+    if(el){ el.scrollIntoView({behavior:"smooth",block:"center"}); el.classList.add("dirty"); el.querySelector(".f-name").select(); }
+    toast("Added a blank product — edit and save ✦");
+  }
+  function resetAll(){
+    if(!confirm("Reset ALL products back to the original catalog? Your edits in this browser will be cleared.")) return;
+    WWStore.reset(); buildCatFilter(); renderList(); toast("Reset to original ✦");
+  }
+  function downloadFile(){
+    const blob = new Blob([WWStore.exportFileText()], {type:"text/javascript"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "products.js"; a.click();
+    URL.revokeObjectURL(a.href);
+    toast("Downloaded products.js — replace the file to go live ✦");
+  }
+  function importFile(ev){
+    const file = ev.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const txt = e.target.result;
+        const start = txt.indexOf("["), end = txt.lastIndexOf("]");
+        const arr = JSON.parse(txt.slice(start, end+1));
+        if(!Array.isArray(arr)) throw new Error("not an array");
+        WWStore.save(arr); buildCatFilter(); renderList();
+        toast(`Imported ${arr.length} products ✦`);
+      } catch(err){ toast("Couldn't read that file"); }
+    };
+    reader.readAsText(file);
+    ev.target.value="";
+  }
+
+  /* ---- tabs ---- */
+  function switchTab(t){
+    ["products","events","about"].forEach(x=>{ document.getElementById("tab-"+x).style.display = x===t ? "" : "none"; });
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active", b.dataset.tab===t));
+    if(t==="events") renderEvents();
+    if(t==="about") renderAboutPhoto();
+  }
+
+  /* ---- About page photo ---- */
+  function renderAboutPhoto(){
+    const el = document.getElementById("aboutPreview");
+    const img = WWStore.aboutImage();
+    el.innerHTML = img
+      ? `<img src="${img}" alt="" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:20px;border:1px solid var(--mint-deep);">`
+      : `<div style="aspect-ratio:4/5;border-radius:20px;border:1px dashed var(--mint-deep);display:grid;place-items:center;font-size:2.4rem;color:var(--sage);">✿</div>`;
+  }
+  function uploadAbout(ev){
+    const file = ev.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const max=1000; let {width:w, height:h} = img;
+        if(w>max || h>max){ const r=Math.min(max/w,max/h); w=Math.round(w*r); h=Math.round(h*r); }
+        const c=document.createElement("canvas"); c.width=w; c.height=h;
+        c.getContext("2d").drawImage(img,0,0,w,h);
+        if(!WWStore.setAboutImage(c.toDataURL("image/jpeg",0.82))){ toast("Storage full"); return; }
+        renderAboutPhoto(); toast("About photo updated ✦");
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    ev.target.value="";
+  }
+  function resetAbout(){
+    if(!confirm("Remove the About page photo?")) return;
+    WWStore.resetAboutImage(); renderAboutPhoto(); toast("Photo removed ✦");
+  }
+  function downloadSettings(){
+    const blob = new Blob([WWStore.exportSettingsText()], {type:"text/javascript"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "settings.js"; a.click(); URL.revokeObjectURL(a.href);
+    toast("Downloaded settings.js — replace the file to go live ✦");
+  }
+  function downloadOne(text, name){
+    const b = new Blob([text], {type:"text/javascript"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(b); a.download = name; a.click(); URL.revokeObjectURL(a.href);
+  }
+  function downloadAll(){
+    /* exports from saved data — click "Save events" first if you have unsaved event edits */
+    downloadOne(WWStore.exportFileText(), "products.js");
+    setTimeout(()=>downloadOne(WWStore.exportEventsText(), "events.js"), 350);
+    setTimeout(()=>downloadOne(WWStore.exportSettingsText(), "settings.js"), 700);
+    toast("Downloading products.js, events.js, settings.js — click Keep on each ✦");
+  }
+
+  /* Publish straight to the live site (needs the Netlify setup — see PUBLISH-SETUP.md) */
+  async function publishLive(){
+    let secret = sessionStorage.getItem("ww_pub_secret");
+    if(!secret){
+      secret = prompt("Publish password (set up on Netlify):");
+      if(!secret) return;
+      sessionStorage.setItem("ww_pub_secret", secret);
+    }
+    const files = {
+      "products.js": WWStore.exportFileText(),
+      "events.js": WWStore.exportEventsText(),
+      "settings.js": WWStore.exportSettingsText(),
+    };
+    toast("Publishing to the website…");
+    try {
+      const r = await fetch("/.netlify/functions/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ secret, files }),
+      });
+      if(r.ok){
+        toast("Published! The site updates in about a minute ✦");
+      } else if(r.status === 401){
+        sessionStorage.removeItem("ww_pub_secret");
+        toast("Wrong publish password — try again");
+      } else {
+        const t = await r.text();
+        toast("Publish failed: " + t.slice(0,60));
+      }
+    } catch(e){
+      toast("Publishing works only on the live site — locally use Download instead");
+    }
+  }
+
+  /* ---- markets & events editor ---- */
+  function eventRowHTML(e){
+    e = e || {};
+    return `<div class="ev-row">
+      <label>Month<input class="ev-mon" placeholder="Jul" value="${esc(e.mon||"")}"></label>
+      <label>Day<input class="ev-day" placeholder="19" value="${esc(e.day||"")}"></label>
+      <label>Market name<input class="ev-name" placeholder="Market name" value="${esc(e.name||"")}"></label>
+      <label>Location<input class="ev-place" placeholder="Park, City" value="${esc(e.place||"")}"></label>
+      <label>Date &amp; time<input class="ev-time" placeholder="Sat · 10am – 5pm" value="${esc(e.time||"")}"></label>
+      <label class="check"><input type="checkbox" class="ev-soon" ${e.soon?"checked":""}> Up next</label>
+      <button class="abtn danger ev-del" type="button" onclick="this.closest('.ev-row').remove()">Delete</button>
+    </div>`;
+  }
+  function renderEvents(){
+    const list = document.getElementById("eventsList");
+    const evs = WWStore.events();
+    list.innerHTML = evs.length ? evs.map(eventRowHTML).join("") : '<p class="admin-count">No events yet — add one.</p>';
+    document.getElementById("evCount").textContent =
+      `${evs.length} event${evs.length===1?"":"s"}` + (WWStore.eventsCustomized() ? " · edited (not yet downloaded)" : "");
+  }
+  function readEvents(){
+    const out = [];
+    document.querySelectorAll("#eventsList .ev-row").forEach(r=>{
+      const ev = {
+        mon: r.querySelector(".ev-mon").value.trim(),
+        day: r.querySelector(".ev-day").value.trim(),
+        name: r.querySelector(".ev-name").value.trim(),
+        place: r.querySelector(".ev-place").value.trim(),
+        time: r.querySelector(".ev-time").value.trim(),
+        soon: r.querySelector(".ev-soon").checked,
+      };
+      if(ev.name || ev.mon || ev.day) out.push(ev);
+    });
+    return out;
+  }
+  function addEvent(){
+    const list = document.getElementById("eventsList");
+    if(list.querySelector(".admin-count")) list.innerHTML = "";
+    list.insertAdjacentHTML("beforeend", eventRowHTML({}));
+    list.lastElementChild.querySelector(".ev-mon").focus();
+  }
+  function saveEventsList(){
+    if(!WWStore.saveEvents(readEvents())){ toast("Storage full"); return; }
+    renderEvents(); toast("Events saved ✦");
+  }
+  function downloadEvents(){
+    WWStore.saveEvents(readEvents());
+    const blob = new Blob([WWStore.exportEventsText()], {type:"text/javascript"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "events.js"; a.click(); URL.revokeObjectURL(a.href);
+    toast("Downloaded events.js — replace the file to go live ✦");
+  }
+  function resetEventsList(){
+    if(!confirm("Reset markets & events back to the original list?")) return;
+    WWStore.resetEvents(); renderEvents(); toast("Events reset ✦");
+  }
+</script>
+</body>
+</html>
