@@ -187,7 +187,8 @@
             <span class="price">${priceLabel(p)}</span>
             <button class="add" data-id="${p.id}">Add</button>
           </div>
-        </div>`).join("");
+        </div>
+      </article>`).join("");
     grid.querySelectorAll(".add").forEach(btn=>{
       const p = picks.find(x=>x.id===btn.dataset.id);
       btn.onclick = () => WWCart.add(p.name, p.price||0, CAT_EMOJI[p.category]||"✦", toneFor(p.id), p.img||"");
