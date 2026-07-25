@@ -649,12 +649,14 @@ window.WW_DEFAULT_PRODUCTS = [
      },
      {
       "label": "Green & Gold",
-      "price": 5
+      "price": 5,
+      "sold": true
      }
     ]
    }
   ],
-  "sold": false
+  "sold": false,
+  "featured": false
  },
  {
   "id": "strawberry-shortcake-42",
