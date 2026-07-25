@@ -197,7 +197,7 @@
   function openQuickView(p){
     const imgs = getImgs(p);
     const opts = p.options || [];
-    const sel = opts.map(() => 0);
+    const sel = opts.map(g => { const i = g.choices.findIndex(c => !c.sold); return i >= 0 ? i : 0; });
 
     const gallery = imgs.length
       ? `<div class="qv-main"><img id="qvMain" src="${esc(imgs[0])}" alt="${esc(p.name)}"></div>`
@@ -210,7 +210,7 @@
       <div class="qv-opt">
         <div class="qv-opt-name">${esc(g.name)}</div>
         <div class="qv-choices">${g.choices.map((c,ci)=>
-          `<button class="qv-choice${ci===0?" active":""}" data-gi="${gi}" data-ci="${ci}">${esc(c.label)}${c.price!=null?` — $${c.price}`:""}</button>`).join("")}</div>
+          `<button class="qv-choice${ci===sel[gi]?" active":""}${c.sold?" sold":""}" data-gi="${gi}" data-ci="${ci}"${c.sold?" disabled":""}>${esc(c.label)}${c.price!=null?` — $${c.price}`:""}${c.sold?" · sold out":""}</button>`).join("")}</div>
       </div>`).join("");
 
     const ov = document.createElement("div");
@@ -231,11 +231,15 @@
       opts.forEach((g,gi)=>{ const c = g.choices[sel[gi]]; if(c && c.price != null) price = c.price; });
       return price;
     }
-    function updatePrice(){
+    function updateState(){
       const pr = currentPrice();
       ov.querySelector("#qvPrice").textContent = pr ? "$"+pr : (p.priceText || "—");
+      const ok = opts.every((g,gi)=>{ const c = g.choices[sel[gi]]; return c && !c.sold; });
+      const addBtn = ov.querySelector(".qv-add");
+      addBtn.disabled = !ok;
+      addBtn.textContent = ok ? "Add to cart ✦" : "Sold out";
     }
-    updatePrice();
+    updateState();
 
     const close = () => ov.remove();
     ov.addEventListener("click", e => { if(e.target === ov) close(); });
@@ -245,11 +249,13 @@
       ov.querySelectorAll(".qv-thumb").forEach(x => x.classList.toggle("active", x === t));
     });
     ov.querySelectorAll(".qv-choice").forEach(ch => ch.onclick = () => {
+      if(ch.disabled) return;
       const gi = +ch.dataset.gi, ci = +ch.dataset.ci; sel[gi] = ci;
       ov.querySelectorAll(`.qv-choice[data-gi="${gi}"]`).forEach(x => x.classList.toggle("active", x === ch));
-      updatePrice();
+      updateState();
     });
     ov.querySelector(".qv-add").onclick = () => {
+      if(ov.querySelector(".qv-add").disabled) return;
       const labels = opts.map((g,gi) => g.choices[sel[gi]].label).filter(Boolean);
       const name = labels.length ? `${p.name} — ${labels.join(", ")}` : p.name;
       const mainImg = ov.querySelector("#qvMain") ? ov.querySelector("#qvMain").getAttribute("src") : (imgs[0] || "");

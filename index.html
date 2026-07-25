@@ -163,16 +163,23 @@
     function toneFor(id){ let h=0; for(const ch of id) h=(h*31+ch.charCodeAt(0))>>>0; return TONES[h%TONES.length]; }
     function priceLabel(p){ return p.priceText ? p.priceText : (p.price!=null ? "$"+p.price : "—"); }
 
-    const all = WWStore.all().filter(p=>p.img && !p.sold);   // available items with photos
-    const byCat = {};
-    all.forEach(p=>{ (byCat[p.category]=byCat[p.category]||[]).push(p); });
-    const picks = [];
-    let round = 0;
-    while(picks.length < 6 && round < 8){
-      for(const cat of Object.keys(byCat)){
-        if(byCat[cat][round]){ picks.push(byCat[cat][round]); if(picks.length>=6) break; }
+    /* show items the admin marked as Featured; if none are marked, auto-pick a spread */
+    const marked = WWStore.all().filter(p=>p.featured && p.img && !p.sold);
+    let picks;
+    if(marked.length){
+      picks = marked;
+    } else {
+      const all = WWStore.all().filter(p=>p.img && !p.sold);
+      const byCat = {};
+      all.forEach(p=>{ (byCat[p.category]=byCat[p.category]||[]).push(p); });
+      picks = [];
+      let round = 0;
+      while(picks.length < 6 && round < 8){
+        for(const cat of Object.keys(byCat)){
+          if(byCat[cat][round]){ picks.push(byCat[cat][round]); if(picks.length>=6) break; }
+        }
+        round++;
       }
-      round++;
     }
 
     const grid = document.getElementById("featGrid");

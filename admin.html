@@ -165,7 +165,8 @@
         <label>Subcategory<input class="f-sub" type="text" list="subOpts" value="${esc(p.sub)}"></label>
         <label>Price ($)<input class="f-price" type="number" min="0" step="1" value="${p.price==null?"":p.price}"></label>
         <label>Price label (optional)<input class="f-ptext" type="text" placeholder="e.g. $12 each" value="${esc(p.priceText)}"></label>
-        <label class="check wide"><input type="checkbox" class="f-sold" ${p.sold?"checked":""}> Mark as sold out</label>
+        <label class="check wide"><input type="checkbox" class="f-sold" ${p.sold?"checked":""}> Mark whole item sold out</label>
+        <label class="check wide"><input type="checkbox" class="f-featured" ${p.featured?"checked":""}> ✦ Show in Featured on the home page</label>
         <div class="wide">
           <div class="qv-opt-name" style="margin-bottom:.4rem">Options — colour / design / quantity</div>
           <div class="opt-editor"></div>
@@ -221,6 +222,7 @@
     return `<div class="opt-choice-row">
       <input class="opt-clabel" placeholder="Label (e.g. Pink)" value="${esc(c.label||"")}">
       <input class="opt-cprice" type="number" min="0" step="1" placeholder="$ (optional)" value="${c.price!=null?c.price:""}">
+      <label class="opt-csold-lbl"><input type="checkbox" class="opt-csold" ${c.sold?"checked":""}> sold</label>
       <button type="button" class="abtn danger opt-mini opt-rmchoice" aria-label="Remove choice">×</button>
     </div>`;
   }
@@ -258,7 +260,7 @@
       g.querySelectorAll(".opt-choice-row").forEach(r=>{
         const label = r.querySelector(".opt-clabel").value.trim();
         const pv = r.querySelector(".opt-cprice").value;
-        if(label){ const c={label}; if(pv!=="") c.price=Number(pv); choices.push(c); }
+        if(label){ const c={label}; if(pv!=="") c.price=Number(pv); if(r.querySelector(".opt-csold").checked) c.sold=true; choices.push(c); }
       });
       if(name && choices.length) options.push({ name, choices });
     });
@@ -274,6 +276,7 @@
       img: imgs[0] || "",
       options: options,
       sold: card.querySelector(".f-sold").checked,
+      featured: card.querySelector(".f-featured").checked,
     };
   }
   function saveItem(btn){
@@ -297,7 +300,7 @@
   }
   function addNew(){
     const prod = { id: WWStore.newId("new-item"), name:"New product", category:"Bracelets",
-      sub:"", price:null, priceText:"", desc:"", img:"", imgs:[], options:[], sold:false };
+      sub:"", price:null, priceText:"", desc:"", img:"", imgs:[], options:[], sold:false, featured:false };
     WWStore.upsert(prod);
     document.getElementById("search").value="";
     document.getElementById("catFilter").value="All";

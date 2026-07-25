@@ -300,6 +300,10 @@ footer ul a:hover{color:#fff;}
 .qv-choices{display:flex;flex-wrap:wrap;gap:.5rem;}
 .qv-choice{border:1px solid var(--mint-deep);background:var(--cream);color:var(--ink);border-radius:999px;padding:.45rem .9rem;font-family:"Nunito";font-weight:700;font-size:.84rem;cursor:pointer;}
 .qv-choice.active{background:var(--rose);color:#fff;border-color:var(--rose);}
+.qv-choice.sold,.qv-choice:disabled{text-decoration:line-through;opacity:.5;cursor:not-allowed;background:var(--mint);color:var(--sage);border-color:var(--mint-deep);}
+.qv-add:disabled{background:var(--sage);opacity:.7;cursor:not-allowed;}
+.opt-choice-row .opt-csold-lbl{display:inline-flex;align-items:center;gap:.25rem;font-size:.76rem;font-weight:700;color:var(--rose-deep);white-space:nowrap;}
+.opt-choice-row .opt-csold-lbl input{width:auto;}
 .qv-add{width:100%;background:var(--rose);color:#fff;border:none;border-radius:999px;padding:.85rem;font-family:"Nunito";font-weight:700;font-size:.98rem;cursor:pointer;margin-top:.3rem;}
 .qv-add:hover{background:var(--rose-deep);}
 .photo .more-badge{position:absolute;bottom:8px;left:10px;background:rgba(59,58,62,.72);color:#fff;font-size:.66rem;font-weight:700;padding:.2rem .5rem;border-radius:999px;}
