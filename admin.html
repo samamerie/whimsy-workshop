@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Admin — Whimsy Workshop</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/png" href="logo-mark.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -48,6 +50,7 @@
     <button class="abtn tab-btn active" data-tab="products" onclick="switchTab('products')">Products</button>
     <button class="abtn tab-btn" data-tab="events" onclick="switchTab('events')">Markets &amp; events</button>
     <button class="abtn tab-btn" data-tab="about" onclick="switchTab('about')">About photo</button>
+    <button class="abtn tab-btn" data-tab="testimonials" onclick="switchTab('testimonials')">Testimonials</button>
   </div>
 
   <div id="tab-products">
@@ -85,6 +88,18 @@
     <p class="admin-count">This is the big photo at the top of the About page.</p>
     <div id="aboutPreview" style="max-width:300px;margin:0 auto;"></div>
   </div>
+
+  <div id="tab-testimonials" style="display:none;">
+    <div class="admin-bar">
+      <button class="abtn primary" onclick="addTestimonial()">+ Add testimonial</button>
+      <button class="abtn primary" onclick="saveTestimonialsList()">Save testimonials</button>
+      <button class="abtn" onclick="downloadTestimonials()">Download testimonials.js</button>
+      <button class="abtn danger" onclick="resetTestimonialsList()">Reset</button>
+    </div>
+    <p class="admin-count" id="tsCount"></p>
+    <p class="admin-count" style="font-weight:600;color:var(--sage);">Real kind words from customers (Instagram, markets…). They show on the home page. Leave empty to hide the section.</p>
+    <div class="admin-list" id="testimonialsList"></div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -92,6 +107,7 @@
 <script src="products.js"></script>
 <script src="events.js"></script>
 <script src="settings.js"></script>
+<script src="testimonials.js"></script>
 <script src="store.js"></script>
 <script>
   const ADMIN_EMAIL = "samamerie0@gmail.com";
@@ -339,10 +355,56 @@
 
   /* ---- tabs ---- */
   function switchTab(t){
-    ["products","events","about"].forEach(x=>{ document.getElementById("tab-"+x).style.display = x===t ? "" : "none"; });
+    ["products","events","about","testimonials"].forEach(x=>{ document.getElementById("tab-"+x).style.display = x===t ? "" : "none"; });
     document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active", b.dataset.tab===t));
     if(t==="events") renderEvents();
     if(t==="about") renderAboutPhoto();
+    if(t==="testimonials") renderTestimonials();
+  }
+
+  /* ---- testimonials editor ---- */
+  function testimonialRowHTML(t){
+    t = t || {};
+    return `<div class="ev-row ts-row">
+      <label class="wide">Quote<textarea class="ts-quote" placeholder="&ldquo;I love my bracelet!&rdquo;">${esc(t.quote||"")}</textarea></label>
+      <label>Name<input class="ts-name" type="text" placeholder="First name / @handle" value="${esc(t.name||"")}"></label>
+      <button class="abtn danger ts-del" type="button" onclick="this.closest('.ts-row').remove()">Delete</button>
+    </div>`;
+  }
+  function renderTestimonials(){
+    const list = document.getElementById("testimonialsList");
+    const ts = WWStore.testimonials();
+    list.innerHTML = ts.length ? ts.map(testimonialRowHTML).join("") : '<p class="admin-count">No testimonials yet — add one.</p>';
+    document.getElementById("tsCount").textContent =
+      `${ts.length} testimonial${ts.length===1?"":"s"}` + (WWStore.testimonialsCustomized() ? " · edited (not yet published)" : "");
+  }
+  function readTestimonials(){
+    const out = [];
+    document.querySelectorAll("#testimonialsList .ts-row").forEach(r=>{
+      const quote = r.querySelector(".ts-quote").value.trim();
+      const name = r.querySelector(".ts-name").value.trim();
+      if(quote) out.push({ quote, name });
+    });
+    return out;
+  }
+  function addTestimonial(){
+    const list = document.getElementById("testimonialsList");
+    if(list.querySelector(".admin-count")) list.innerHTML = "";
+    list.insertAdjacentHTML("beforeend", testimonialRowHTML({}));
+    list.lastElementChild.querySelector(".ts-quote").focus();
+  }
+  function saveTestimonialsList(){
+    if(!WWStore.saveTestimonials(readTestimonials())){ toast("Storage full"); return; }
+    renderTestimonials(); toast("Testimonials saved ✦");
+  }
+  function downloadTestimonials(){
+    WWStore.saveTestimonials(readTestimonials());
+    downloadOne(WWStore.exportTestimonialsText(), "testimonials.js");
+    toast("Downloaded testimonials.js ✦");
+  }
+  function resetTestimonialsList(){
+    if(!confirm("Reset testimonials?")) return;
+    WWStore.resetTestimonials(); renderTestimonials(); toast("Testimonials reset ✦");
   }
 
   /* ---- About page photo ---- */
@@ -391,7 +453,8 @@
     downloadOne(WWStore.exportFileText(), "products.js");
     setTimeout(()=>downloadOne(WWStore.exportEventsText(), "events.js"), 350);
     setTimeout(()=>downloadOne(WWStore.exportSettingsText(), "settings.js"), 700);
-    toast("Downloading products.js, events.js, settings.js — click Keep on each ✦");
+    setTimeout(()=>downloadOne(WWStore.exportTestimonialsText(), "testimonials.js"), 1050);
+    toast("Downloading products.js, events.js, settings.js, testimonials.js ✦");
   }
 
   /* Publish straight to the live site (needs the Netlify setup — see PUBLISH-SETUP.md) */
@@ -406,6 +469,7 @@
       "products.js": WWStore.exportFileText(),
       "events.js": WWStore.exportEventsText(),
       "settings.js": WWStore.exportSettingsText(),
+      "testimonials.js": WWStore.exportTestimonialsText(),
     };
     toast("Publishing to the website…");
     try {

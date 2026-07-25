@@ -145,6 +145,17 @@ header{position:sticky;top:0;z-index:50;background:rgba(233,241,235,.82);backdro
 .shop-cat-head h2{font-size:clamp(1.4rem,3.2vw,2rem);}
 .shop-cat-head .n{color:var(--sage);font-weight:700;font-size:.84rem;}
 
+/* testimonials */
+.tm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;}
+.tm-card{background:var(--cream);border:1px solid var(--mint-deep);border-radius:var(--radius);padding:1.6rem 1.5rem;position:relative;transition:transform .22s,box-shadow .22s;}
+.tm-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.tm-mark{font-family:"Fraunces",serif;font-size:3rem;line-height:.6;color:var(--rose);opacity:.5;margin-bottom:.3rem;}
+.tm-quote{font-family:"Fraunces",serif;font-style:italic;font-weight:400;font-size:1.05rem;color:var(--ink);line-height:1.5;margin:0 0 .8rem;}
+.tm-name{font-weight:700;color:var(--rose-deep);font-size:.86rem;margin:0;}
+/* testimonials admin row */
+.ts-row{grid-template-columns:1fr 180px auto;}
+.ts-row .ts-quote{grid-column:1/-1;min-height:54px;resize:vertical;font-family:"Nunito";font-weight:600;font-size:.88rem;color:var(--ink);background:#fff;border:1px solid var(--mint-deep);border-radius:10px;padding:.5rem .6rem;}
+
 /* story */
 .story{background:var(--cream);border-radius:32px;padding:clamp(2rem,5vw,3.4rem);display:grid;grid-template-columns:1.1fr .9fr;gap:2.4rem;align-items:center;border:1px solid var(--mint-deep);}
 .story h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:1rem;}

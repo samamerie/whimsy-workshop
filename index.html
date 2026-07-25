@@ -4,6 +4,19 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Whimsy Workshop — Home of Handmade Whimsy</title>
+<meta name="description" content="Handmade phone charms, beaded bracelets, crochet buddies and polymer-clay treasures — made by hand in Windsor–LaSalle, Ontario. Ships across Canada." />
+<link rel="icon" type="image/png" href="logo-mark.png" />
+<link rel="apple-touch-icon" href="Logo.jpg" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Whimsy Workshop" />
+<meta property="og:title" content="Whimsy Workshop — Home of Handmade Whimsy" />
+<meta property="og:description" content="Tiny handmade treasures — charms, bracelets, crochet & clay. Made by hand in Ontario, ships across Canada." />
+<meta property="og:image" content="https://whimsyworkshop.shop/Logo.jpg" />
+<meta property="og:url" content="https://whimsyworkshop.shop/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Whimsy Workshop — Home of Handmade Whimsy" />
+<meta name="twitter:description" content="Tiny handmade treasures — charms, bracelets, crochet & clay. Made by hand in Ontario." />
+<meta name="twitter:image" content="https://whimsyworkshop.shop/Logo.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -113,6 +126,16 @@
   </div>
 </section>
 
+<section class="section" id="lovenotes" style="display:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Kind words</p>
+      <h2>Love notes from customers</h2>
+    </div>
+    <div class="tm-grid" id="tmGrid"></div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="foot-top">
@@ -153,6 +176,7 @@
 
 <script src="products.js"></script>
 <script src="store.js"></script>
+<script src="testimonials.js"></script>
 <script src="account.js"></script>
 <script src="cart.js"></script>
 <script>
@@ -219,13 +243,39 @@
     update();
   })();
 
-  function joinList(e){
-    e.preventDefault();
+  /* testimonials — show the section only if there are any */
+  (function(){
+    const ts = (window.WWStore ? WWStore.testimonials() : []).filter(t => t && t.quote);
+    if(!ts.length) return;
+    const esc = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    const grid = document.getElementById("tmGrid");
+    grid.innerHTML = ts.map(t => `
+      <div class="tm-card">
+        <div class="tm-mark">&ldquo;</div>
+        <p class="tm-quote">${esc(t.quote)}</p>
+        ${t.name?`<p class="tm-name">— ${esc(t.name)}</p>`:""}
+      </div>`).join("");
+    document.getElementById("lovenotes").style.display = "";
+  })();
+
+  function _newsToast(msg){
     const t=document.getElementById('toast');
-    t.textContent='Thanks — you’re on the list ✦';
-    t.classList.add('show');
-    clearTimeout(window._tt);
-    window._tt=setTimeout(()=>t.classList.remove('show'),1800);
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(window._tt); window._tt=setTimeout(()=>t.classList.remove('show'),2200);
+  }
+  async function joinList(e){
+    e.preventDefault();
+    const input=document.querySelector('.news input');
+    const email=(input.value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ _newsToast('Please enter a valid email'); return; }
+    const local=['localhost','127.0.0.1',''].includes(location.hostname)||location.protocol==='file:';
+    if(local){ _newsToast('Thanks — you’re on the list ✦'); input.value=''; return; }
+    _newsToast('Adding you…');
+    try{
+      const r=await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+      if(r.ok){ _newsToast('Thanks — you’re on the list ✦'); input.value=''; }
+      else { _newsToast('Hmm, please try again in a moment'); }
+    }catch(err){ _newsToast('Hmm, please try again in a moment'); }
   }
 </script>
 </body>
